@@ -1,0 +1,1708 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kolaborasi Visual | CreativeFlow Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ========== VARIABEL CSS EXTENSIVE ========== */
+        :root {
+            /* Primary Colors */
+            --primary-100: #f0ebff;
+            --primary-200: #d9ccff;
+            --primary-300: #b399ff;
+            --primary-400: #8d6bec;
+            --primary-500: #6e45e2;
+            --primary-600: #5d3ac9;
+            --primary-700: #4d2bcb;
+            --primary-800: #3c1fb3;
+            --primary-900: #2c1399;
+            
+            /* Secondary Colors */
+            --secondary-100: #e6f9f8;
+            --secondary-200: #c0f0ed;
+            --secondary-300: #a7e4e0;
+            --secondary-400: #88d3ce;
+            --secondary-500: #69c2bd;
+            --secondary-600: #4fb1ab;
+            --secondary-700: #3a9c96;
+            --secondary-800: #288781;
+            --secondary-900: #16726b;
+            
+            /* Accent Colors */
+            --accent-100: #fff0ed;
+            --accent-200: #ffd5cc;
+            --accent-300: #ffb8aa;
+            --accent-400: #ff957a;
+            --accent-500: #ff7e5f;
+            --accent-600: #ff6540;
+            --accent-700: #e64c2e;
+            --accent-800: #cc331b;
+            --accent-900: #b31a00;
+            
+            /* Neutral Colors */
+            --white: #ffffff;
+            --gray-50: #f9f9ff;
+            --gray-100: #e6e6f0;
+            --gray-200: #d4d4e0;
+            --gray-300: #b8b8c7;
+            --gray-400: #9c9cae;
+            --gray-500: #808095;
+            --gray-600: #64647c;
+            --gray-700: #4e526a;
+            --gray-800: #3c3f54;
+            --gray-900: #2a2d3e;
+            --black: #121212;
+            
+            /* Gradients */
+            --gradient-primary: linear-gradient(135deg, var(--primary-500), var(--secondary-400));
+            --gradient-accent: linear-gradient(135deg, var(--accent-500), var(--accent-400));
+            --gradient-dark: linear-gradient(135deg, var(--gray-900), var(--gray-800));
+            --gradient-purple-accent: linear-gradient(135deg, var(--primary-500), var(--accent-500));
+            
+            /* Shadows */
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.16);
+            --shadow-xl: 0 16px 32px rgba(0, 0, 0, 0.2);
+            --shadow-primary: 0 8px 24px rgba(110, 69, 226, 0.3);
+            --shadow-accent: 0 8px 24px rgba(255, 126, 95, 0.3);
+            
+            /* Spacing */
+            --space-xxs: 4px;
+            --space-xs: 8px;
+            --space-sm: 12px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 32px;
+            --space-xxl: 48px;
+            --space-xxxl: 64px;
+            
+            /* Border Radius */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --radius-xxl: 24px;
+            --radius-full: 9999px;
+            
+            /* Typography */
+            --text-xs: 0.75rem;
+            --text-sm: 0.875rem;
+            --text-base: 1rem;
+            --text-lg: 1.125rem;
+            --text-xl: 1.25rem;
+            --text-2xl: 1.5rem;
+            --text-3xl: 1.875rem;
+            --text-4xl: 2.25rem;
+            --text-5xl: 3rem;
+            --text-6xl: 3.75rem;
+            
+            /* Transitions */
+            --transition-fast: 0.15s ease;
+            --transition-normal: 0.3s ease;
+            --transition-slow: 0.45s ease;
+            --transition-bounce: 0.5s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+        }
+
+        /* ========== BASE STYLES ========== */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--gray-900);
+            background-color: var(--white);
+            overflow-x: hidden;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        ::selection {
+            background-color: var(--primary-500);
+            color: var(--white);
+        }
+
+        /* ========== TYPOGRAPHY ========== */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: var(--space-md);
+        }
+
+        h1 { font-size: var(--text-5xl); }
+        h2 { font-size: var(--text-4xl); }
+        h3 { font-size: var(--text-3xl); }
+        h4 { font-size: var(--text-2xl); }
+        h5 { font-size: var(--text-xl); }
+        h6 { font-size: var(--text-lg); }
+
+        p {
+            margin-bottom: var(--space-md);
+            color: var(--gray-700);
+        }
+
+        a {
+            color: var(--primary-500);
+            text-decoration: none;
+            transition: color var(--transition-fast);
+        }
+
+        a:hover {
+            color: var(--primary-700);
+        }
+
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* ========== LAYOUT UTILITIES ========== */
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--space-lg);
+        }
+
+        .section {
+            padding: var(--space-xxxl) 0;
+            position: relative;
+        }
+
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: var(--space-xl);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: calc(-1 * var(--space-sm));
+            left: 0;
+            width: var(--space-xxl);
+            height: 4px;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-full);
+        }
+
+        .section-subtitle {
+            font-size: var(--text-lg);
+            color: var(--gray-600);
+            max-width: 700px;
+            margin-bottom: var(--space-xl);
+        }
+
+        /* ========== BUTTONS ========== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            font-size: var(--text-base);
+            line-height: 1;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            user-select: none;
+            border: 2px solid transparent;
+            transition: all var(--transition-bounce);
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-primary);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--primary-500);
+            border-color: var(--primary-500);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-500);
+            color: var(--white);
+            border-color: var(--primary-500);
+        }
+
+        .btn-accent {
+            background: var(--gradient-accent);
+            color: var(--white);
+        }
+
+        .btn-accent:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-accent);
+        }
+
+        /* ========== HEADER ========== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: var(--space-md) 0;
+            transition: all var(--transition-normal);
+            background-color: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .header.scrolled {
+            padding: var(--space-xs) 0;
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            font-size: var(--text-xl);
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .logo-icon {
+            margin-right: var(--space-xs);
+            color: var(--primary-500);
+            font-size: var(--text-xl);
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 28px;
+            height: 20px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background: var(--gray-900);
+            border-radius: var(--radius-full);
+            transition: all var(--transition-normal);
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        /* Navigation */
+        .nav {
+            order: 3;
+            width: 100%;
+            margin-top: var(--space-md);
+            display: none;
+        }
+
+        .nav.active {
+            display: block;
+        }
+
+        .nav-list {
+            display: flex;
+            flex-direction: column;
+            list-style: none;
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-sm);
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-item {
+            margin: var(--space-xxs) 0;
+        }
+
+        .nav-link {
+            display: block;
+            padding: var(--space-sm) var(--space-md);
+            color: var(--gray-900);
+            border-radius: var(--radius-md);
+            transition: all var(--transition-fast);
+        }
+
+        .nav-link:hover {
+            background: rgba(110, 69, 226, 0.1);
+            color: var(--primary-500);
+        }
+
+        /* ========== HERO SECTION ========== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: var(--gradient-dark);
+            color: var(--white);
+            padding: calc(var(--space-xxxl) * 1.5) 0 var(--space-xxxl);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+        }
+
+        .hero-title {
+            font-size: var(--text-5xl);
+            margin-bottom: var(--space-lg);
+            background: linear-gradient(to right, var(--white), var(--secondary-300));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textGradient 8s infinite alternate;
+        }
+
+        .hero-subtitle {
+            font-size: var(--text-lg);
+            opacity: 0.9;
+            margin-bottom: var(--space-xl);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: var(--space-md);
+            margin-top: var(--space-xl);
+        }
+
+        /* Hero Visualization */
+        .hero-visualization {
+            position: absolute;
+            right: -100px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 700px;
+            height: 700px;
+            opacity: 0.8;
+        }
+
+        .visualization-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .visualization-core {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, var(--primary-500), transparent 60%);
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            animation: pulse 8s infinite alternate;
+        }
+
+        .visualization-node {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--text-2xl);
+            color: var(--white);
+            box-shadow: var(--shadow-lg);
+            transform: translate(-50%, -50%);
+            animation: float 6s infinite ease-in-out;
+            z-index: 2;
+            transition: all var(--transition-normal);
+        }
+
+        .visualization-node:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .visualization-node:nth-child(1) {
+            top: 20%;
+            left: 20%;
+            background: var(--accent-500);
+            animation-delay: 0s;
+        }
+
+        .visualization-node:nth-child(2) {
+            top: 20%;
+            left: 80%;
+            background: var(--secondary-500);
+            animation-delay: 0.5s;
+        }
+
+        .visualization-node:nth-child(3) {
+            top: 80%;
+            left: 20%;
+            background: #ffd166;
+            animation-delay: 1s;
+        }
+
+        .visualization-node:nth-child(4) {
+            top: 80%;
+            left: 80%;
+            background: #06d6a0;
+            animation-delay: 1.5s;
+        }
+
+        .connection-line {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.5), rgba(255,255,255,0));
+            transform-origin: left center;
+            z-index: 1;
+        }
+
+        /* ========== FEATURES SECTION ========== */
+        .features {
+            position: relative;
+            overflow: hidden;
+            background: var(--white);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-lg);
+            margin-top: var(--space-xl);
+        }
+
+        .feature-card {
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-md);
+            transition: all var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--gray-100);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(110, 69, 226, 0.03), rgba(136, 211, 206, 0.03));
+            z-index: -1;
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--text-2xl);
+            margin-bottom: var(--space-lg);
+            color: var(--white);
+            background: var(--gradient-primary);
+            box-shadow: var(--shadow-primary);
+        }
+
+        .feature-title {
+            font-size: var(--text-xl);
+            margin-bottom: var(--space-sm);
+        }
+
+        .feature-description {
+            color: var(--gray-600);
+            margin-bottom: var(--space-lg);
+            font-size: var(--text-base);
+        }
+
+        /* ========== HOW IT WORKS SECTION ========== */
+        .how-it-works {
+            background: linear-gradient(135deg, var(--gray-50), var(--gray-100));
+        }
+
+        .steps-container {
+            position: relative;
+            margin-top: var(--space-xxl);
+        }
+
+        .step-line {
+            position: absolute;
+            left: 30px;
+            top: 40px;
+            bottom: 40px;
+            width: 4px;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-full);
+            z-index: 1;
+        }
+
+        .step {
+            display: flex;
+            margin-bottom: var(--space-xl);
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--text-xl);
+            font-weight: 700;
+            color: var(--primary-500);
+            box-shadow: var(--shadow-md);
+            flex-shrink: 0;
+            margin-right: var(--space-lg);
+            border: 3px solid var(--white);
+        }
+
+        .step-content {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-sm);
+            flex-grow: 1;
+        }
+
+        .step-title {
+            font-size: var(--text-lg);
+            margin-bottom: var(--space-sm);
+        }
+
+        /* ========== TESTIMONIALS SECTION ========== */
+        .testimonials {
+            position: relative;
+        }
+
+        .testimonials-slider {
+            margin-top: var(--space-xxl);
+            position: relative;
+        }
+
+        .testimonial {
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-md);
+            margin: 0 var(--space-sm);
+            position: relative;
+            border: 1px solid var(--gray-100);
+        }
+
+        .testimonial-quote {
+            font-size: var(--text-base);
+            font-style: italic;
+            color: var(--gray-700);
+            margin-bottom: var(--space-lg);
+            position: relative;
+        }
+
+        .testimonial-quote::before {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            left: -10px;
+            font-size: 4rem;
+            color: rgba(110, 69, 226, 0.1);
+            font-family: serif;
+            line-height: 1;
+            z-index: 0;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: var(--space-md);
+            border: 2px solid var(--primary-400);
+        }
+
+        .author-info h4 {
+            font-size: var(--text-base);
+            margin-bottom: var(--space-xxs);
+        }
+
+        .author-info p {
+            color: var(--gray-600);
+            font-size: var(--text-sm);
+        }
+
+        /* ========== CTA SECTION ========== */
+        .cta {
+            background: var(--gradient-dark);
+            color: var(--white);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            padding: var(--space-xxxl) 0;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, var(--primary-500), transparent 70%);
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.3;
+        }
+
+        .cta::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: -50px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, var(--secondary-400), transparent 70%);
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.3;
+        }
+
+        .cta-title {
+            font-size: var(--text-4xl);
+            margin-bottom: var(--space-lg);
+        }
+
+        .cta-subtitle {
+            font-size: var(--text-lg);
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto var(--space-xl);
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            background: var(--gray-900);
+            color: var(--white);
+            padding: var(--space-xxxl) 0 var(--space-lg);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-xl);
+            margin-bottom: var(--space-xxl);
+        }
+
+        .footer-column {
+            margin-bottom: var(--space-lg);
+        }
+
+        .footer-logo {
+            font-size: var(--text-xl);
+            font-weight: 700;
+            margin-bottom: var(--space-md);
+            display: inline-block;
+        }
+
+        .footer-description {
+            opacity: 0.7;
+            margin-bottom: var(--space-md);
+            line-height: 1.6;
+            font-size: var(--text-sm);
+        }
+
+        .social-links {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-normal);
+            font-size: var(--text-base);
+        }
+
+        .social-link:hover {
+            background: var(--primary-500);
+            transform: translateY(-3px);
+        }
+
+        .footer-column h3 {
+            font-size: var(--text-lg);
+            margin-bottom: var(--space-md);
+            position: relative;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 35px;
+            height: 2px;
+            background: var(--gradient-primary);
+            border-radius: var(--radius-full);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: var(--space-sm);
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            transition: all var(--transition-fast);
+            font-size: var(--text-sm);
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+            padding-left: var(--space-xs);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: var(--space-lg);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: var(--text-xs);
+        }
+
+        /* ========== ANIMATIONS ========== */
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.3; }
+            100% { transform: scale(1.1); opacity: 0.5; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+            50% { transform: translate(-50%, -50%) translateY(-15px); }
+        }
+
+        @keyframes textGradient {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ========== RESPONSIVE BREAKPOINTS ========== */
+        @media (max-width: 1199.98px) {
+            .hero-visualization {
+                width: 600px;
+                height: 600px;
+                right: -150px;
+            }
+        }
+
+        @media (max-width: 991.98px) {
+            .hero {
+                padding: 120px 0 80px;
+                text-align: center;
+            }
+
+            .hero-content {
+                max-width: 100%;
+                margin-bottom: var(--space-xxl);
+            }
+
+            .hero-title {
+                font-size: var(--text-4xl);
+            }
+
+            .hero-visualization {
+                position: relative;
+                right: auto;
+                top: auto;
+                transform: none;
+                width: 100%;
+                height: 400px;
+                margin: 0 auto;
+                opacity: 1;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .step {
+                flex-direction: column;
+            }
+
+            .step-number {
+                margin-right: 0;
+                margin-bottom: var(--space-md);
+            }
+
+            .step-line {
+                left: 30px;
+                top: 60px;
+                bottom: 60px;
+            }
+        }
+
+        @media (max-width: 767.98px) {
+            .section {
+                padding: var(--space-xxl) 0;
+            }
+
+            .hero-title {
+                font-size: var(--text-3xl);
+            }
+
+            .hero-subtitle {
+                font-size: var(--text-base);
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                gap: var(--space-sm);
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .step-line {
+                display: none;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .header {
+                padding: var(--space-sm) 0;
+            }
+
+            .logo {
+                font-size: var(--text-lg);
+            }
+
+            .section-title {
+                font-size: var(--text-2xl);
+            }
+
+            .section-subtitle {
+                font-size: var(--text-base);
+            }
+
+            .testimonial {
+                padding: var(--space-lg);
+            }
+
+            .cta-title {
+                font-size: var(--text-2xl);
+            }
+
+            .cta-subtitle {
+                font-size: var(--text-base);
+            }
+        }
+
+        /* ========== UTILITY CLASSES ========== */
+        .text-center {
+            text-align: center;
+        }
+
+        .mx-auto {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .mt-0 { margin-top: 0 !important; }
+        .mt-1 { margin-top: var(--space-xxs) !important; }
+        .mt-2 { margin-top: var(--space-xs) !important; }
+        .mt-3 { margin-top: var(--space-sm) !important; }
+        .mt-4 { margin-top: var(--space-md) !important; }
+        .mt-5 { margin-top: var(--space-lg) !important; }
+        .mt-6 { margin-top: var(--space-xl) !important; }
+        .mt-7 { margin-top: var(--space-xxl) !important; }
+        .mt-8 { margin-top: var(--space-xxxl) !important; }
+
+        /* Add more utility classes as needed */
+    </style>
+</head>
+<body>
+    <!-- ========== HEADER ========== -->
+    <header class="header" id="header">
+        <div class="container">
+            <div class="header-container">
+                <a href="#" class="logo">
+                    <i class="fas fa-magic logo-icon"></i>
+                    <span>CreativeFlow Pro</span>
+                </a>
+                
+                <div class="menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                
+                <nav class="nav" id="nav">
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="#fitur" class="nav-link">Fitur</a></li>
+                        <li class="nav-item"><a href="#cara-kerja" class="nav-link">Cara Kerja</a></li>
+                        <li class="nav-item"><a href="#testimoni" class="nav-link">Testimoni</a></li>
+                        <li class="nav-item"><a href="#harga" class="nav-link">Harga</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========== HERO SECTION ========== -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Kolaborasi Visual Tanpa Batas</h1>
+                <p class="hero-subtitle">Anotasi langsung pada desain, video, dan mockup website dengan alat proofing terintegrasi yang dibuat khusus untuk kreatif.</p>
+                <div class="hero-buttons">
+                    <a href="#" class="btn btn-primary">Mulai Uji Coba Gratis</a>
+                    <a href="#" class="btn btn-secondary">Lihat Demo</a>
+                </div>
+            </div>
+            
+            <div class="hero-visualization">
+                <div class="visualization-container">
+                    <div class="visualization-core"></div>
+                    <div class="visualization-node"><i class="fas fa-pen-fancy"></i></div>
+                    <div class="visualization-node"><i class="fas fa-video"></i></div>
+                    <div class="visualization-node"><i class="fas fa-code"></i></div>
+                    <div class="visualization-node"><i class="fas fa-comments"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FEATURES SECTION ========== -->
+    <section class="section features" id="fitur">
+        <div class="container">
+            <h2 class="section-title">Fitur <span class="text-gradient">Kolaborasi Visual</span></h2>
+            <p class="section-subtitle">Alat canggih untuk memberikan feedback langsung pada berbagai media kreatif.</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3 class="feature-title">Anotasi Desain</h3>
+                    <p class="feature-description">Beri tanda pada area spesifik dengan komentar, bentuk, dan ukuran presisi untuk revisi yang jelas.</p>
+                    <a href="#" class="btn btn-accent">Pelajari Lebih Lanjut</a>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: var(--gradient-accent);">
+                        <i class="fas fa-film"></i>
+                    </div>
+                    <h3 class="feature-title">Markup Video</h3>
+                    <p class="feature-description">Berikan timestamp feedback langsung pada frame video dengan alat drawing terintegrasi.</p>
+                    <a href="#" class="btn btn-accent">Pelajari Lebih Lanjut</a>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: linear-gradient(135deg, #06d6a0, #1b9cf7);">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3 class="feature-title">Mockup Interaktif</h3>
+                    <p class="feature-description">Klik dan beri komentar langsung pada mockup website seperti menggunakan devtools.</p>
+                    <a href="#" class="btn btn-accent">Pelajari Lebih Lanjut</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== HOW IT WORKS SECTION ========== -->
+    <section class="section how-it-works" id="cara-kerja">
+        <div class="container">
+            <h2 class="section-title">Cara <span class="text-gradient">Kerjanya</span></h2>
+            <p class="section-subtitle">Kolaborasi tanpa batas dengan tim dan klien dalam 3 langkah sederhana.</p>
+            
+            <div class="steps-container">
+                <div class="step-line"></div>
+                
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Unggah Karya</h3>
+                        <p>Upload desain (PSD, AI, Figma), video (MP4, MOV), atau mockup website langsung ke platform CreativeFlow Pro.</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Undang Kolaborator</h3>
+                        <p>Bagikan link khusus ke klien atau tim. Mereka bisa memberi feedback langsung tanpa perlu login.</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Review & Tindak Lanjuti</h3>
+                        <p>Semua komentar terkumpul otomatis dalam task board dengan status (baru/dalam progres/selesai).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <!-- ========== TESTIMONIALS SECTION ========== -->
+    <section class="section testimonials" id="testimoni">
+        <div class="container">
+            <h2 class="section-title">Apa Kata <span class="text-gradient">Klien</span></h2>
+            <p class="section-subtitle">Dengar dari para profesional kreatif yang mengubah alur kerja mereka.</p>
+            
+            <div class="testimonials-slider">
+                <div class="testimonial">
+                    <p class="testimonial-quote">Alat kolaborasi visual ini mengurangi waktu revisi kami dari 2 minggu menjadi hanya 3 hari. Game changer untuk bisnis kreatif!</p>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Diana Putri" class="author-avatar">
+                        <div class="author-info">
+                            <h4>Diana Putri</h4>
+                            <p>Creative Director, Pixel Studio</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== INTERACTIVE DEMO SECTION ========== -->
+    <section class="section demo-section">
+        <div class="container">
+            <h2 class="section-title">Coba <span class="text-gradient">Sendiri</span></h2>
+            <p class="section-subtitle">Berikan feedback pada mockup contoh ini untuk merasakan pengalaman kolaborasi.</p>
+            
+            <div class="interactive-demo">
+                <div class="demo-toolbar">
+                    <button class="demo-tool active" data-tool="comment"><i class="fas fa-comment"></i></button>
+                    <button class="demo-tool" data-tool="rectangle"><i class="fas fa-square"></i></button>
+                    <button class="demo-tool" data-tool="arrow"><i class="fas fa-arrow-right"></i></button>
+                    <button class="demo-tool" data-tool="freehand"><i class="fas fa-pencil-alt"></i></button>
+                </div>
+                <div class="demo-canvas" id="demoCanvas">
+                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Website Mockup" class="demo-image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CTA SECTION ========== -->
+    <section class="section cta" id="cta">
+        <div class="container">
+            <h2 class="cta-title">Siap Mengubah Cara Anda Berkolaborasi?</h2>
+            <p class="cta-subtitle">Bergabunglah dengan 10.000+ profesional kreatif yang sudah menggunakan alat kami.</p>
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-primary btn-lg">Mulai Sekarang - Gratis 14 Hari</a>
+                <a href="#" class="btn btn-secondary btn-lg">Jadwalkan Demo</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <a href="#" class="footer-logo">
+                        <i class="fas fa-magic"></i> CreativeFlow Pro
+                    </a>
+                    <p class="footer-description">Platform kolaborasi visual terbaik untuk tim kreatif. Berikan feedback langsung pada desain, video, dan mockup.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Produk</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Fitur</a></li>
+                        <li><a href="#">Harga</a></li>
+                        <li><a href="#">Integrasi</a></li>
+                        <li><a href="#">Pembaruan</a></li>
+                        <li><a href="#">Status</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Sumber Daya</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Panduan</a></li>
+                        <li><a href="#">Webinar</a></li>
+                        <li><a href="#">Dukungan</a></li>
+                        <li><a href="#">API</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Perusahaan</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Tentang Kami</a></li>
+                        <li><a href="#">Karir</a></li>
+                        <li><a href="#">Kontak</a></li>
+                        <li><a href="#">Kebijakan Privasi</a></li>
+                        <li><a href="#">Syarat Layanan</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 CreativeFlow Pro. Seluruh hak dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== SCRIPTS ========== -->
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const nav = document.querySelector('.nav');
+        
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            nav.classList.toggle('active');
+            document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
+        });
+
+        // Close menu when clicking on links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                nav.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            header.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Interactive Demo
+        const demoCanvas = document.getElementById('demoCanvas');
+        const demoTools = document.querySelectorAll('.demo-tool');
+        let currentTool = 'comment';
+        let isDrawing = false;
+        let startX, startY;
+        let currentElement = null;
+
+        // Tool selection
+        demoTools.forEach(tool => {
+            tool.addEventListener('click', () => {
+                demoTools.forEach(t => t.classList.remove('active'));
+                tool.classList.add('active');
+                currentTool = tool.dataset.tool;
+            });
+        });
+
+        // Drawing functionality
+        demoCanvas.addEventListener('mousedown', (e) => {
+            isDrawing = true;
+            startX = e.offsetX;
+            startY = e.offsetY;
+            
+            if (currentTool === 'comment') {
+                currentElement = createComment(startX, startY);
+            } else if (currentTool === 'rectangle') {
+                currentElement = createRectangle(startX, startY);
+            } else if (currentTool === 'arrow') {
+                currentElement = createArrow(startX, startY);
+            } else if (currentTool === 'freehand') {
+                currentElement = createFreehand(startX, startY);
+            }
+        });
+
+        demoCanvas.addEventListener('mousemove', (e) => {
+            if (!isDrawing) return;
+            
+            const x = e.offsetX;
+            const y = e.offsetY;
+            
+            if (currentTool === 'rectangle' && currentElement) {
+                updateRectangle(currentElement, startX, startY, x, y);
+            } else if (currentTool === 'arrow' && currentElement) {
+                updateArrow(currentElement, startX, startY, x, y);
+            } else if (currentTool === 'freehand' && currentElement) {
+                updateFreehand(currentElement, x, y);
+            }
+        });
+
+        demoCanvas.addEventListener('mouseup', () => {
+            isDrawing = false;
+            currentElement = null;
+        });
+
+        demoCanvas.addEventListener('mouseleave', () => {
+            isDrawing = false;
+            currentElement = null;
+        });
+
+        // Touch support for mobile
+        demoCanvas.addEventListener('touchstart', (e) => {
+            const touch = e.touches[0];
+            const rect = demoCanvas.getBoundingClientRect();
+            const x = touch.clientX - rect.left;
+            const y = touch.clientY - rect.top;
+            
+            isDrawing = true;
+            startX = x;
+            startY = y;
+            
+            if (currentTool === 'comment') {
+                currentElement = createComment(startX, startY);
+            }
+        });
+
+        demoCanvas.addEventListener('touchmove', (e) => {
+            if (!isDrawing) return;
+            e.preventDefault();
+            
+            const touch = e.touches[0];
+            const rect = demoCanvas.getBoundingClientRect();
+            const x = touch.clientX - rect.left;
+            const y = touch.clientY - rect.top;
+            
+            if (currentTool === 'freehand' && currentElement) {
+                updateFreehand(currentElement, x, y);
+            }
+        });
+
+        demoCanvas.addEventListener('touchend', () => {
+            isDrawing = false;
+            currentElement = null;
+        });
+
+        // Element creation functions
+        function createComment(x, y) {
+            const comment = document.createElement('div');
+            comment.className = 'demo-comment';
+            comment.style.left = `${x}px`;
+            comment.style.top = `${y}px`;
+            comment.innerHTML = `
+                <div class="comment-header">
+                    <span class="comment-author">Anda</span>
+                    <button class="comment-close">&times;</button>
+                </div>
+                <div class="comment-body" contenteditable="true">Ketik komentar di sini...</div>
+            `;
+            
+            demoCanvas.appendChild(comment);
+            
+            // Close button
+            comment.querySelector('.comment-close').addEventListener('click', () => {
+                comment.style.transform = 'scale(0)';
+                setTimeout(() => comment.remove(), 300);
+            });
+            
+            return comment;
+        }
+
+        function createRectangle(x, y) {
+            const rect = document.createElement('div');
+            rect.className = 'demo-rectangle';
+            rect.style.left = `${x}px`;
+            rect.style.top = `${y}px`;
+            rect.style.width = '0';
+            rect.style.height = '0';
+            demoCanvas.appendChild(rect);
+            return rect;
+        }
+
+        function updateRectangle(rect, x1, y1, x2, y2) {
+            rect.style.left = `${Math.min(x1, x2)}px`;
+            rect.style.top = `${Math.min(y1, y2)}px`;
+            rect.style.width = `${Math.abs(x2 - x1)}px`;
+            rect.style.height = `${Math.abs(y2 - y1)}px`;
+        }
+
+        function createArrow(x, y) {
+            const arrow = document.createElement('div');
+            arrow.className = 'demo-arrow';
+            arrow.style.left = `${x}px`;
+            arrow.style.top = `${y}px`;
+            demoCanvas.appendChild(arrow);
+            return arrow;
+        }
+
+        function updateArrow(arrow, x1, y1, x2, y2) {
+            const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+            const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+            
+            arrow.style.width = `${length}px`;
+            arrow.style.transform = `rotate(${angle}deg)`;
+            arrow.style.transformOrigin = '0 50%';
+        }
+
+        function createFreehand(x, y) {
+            const path = document.createElement('div');
+            path.className = 'demo-freehand';
+            path.style.left = `${x}px`;
+            path.style.top = `${y}px`;
+            path.dataset.points = `${x},${y}`;
+            demoCanvas.appendChild(path);
+            return path;
+        }
+
+        function updateFreehand(path, x, y) {
+            const points = path.dataset.points;
+            path.dataset.points = `${points} ${x},${y}`;
+            
+            // Create SVG path
+            const pointsArray = path.dataset.points.split(' ').map(p => {
+                const [px, py] = p.split(',');
+                return {x: parseFloat(px), y: parseFloat(py)};
+            });
+            
+            let d = '';
+            pointsArray.forEach((point, i) => {
+                if (i === 0) {
+                    d += `M ${point.x} ${point.y}`;
+                } else {
+                    d += ` L ${point.x} ${point.y}`;
+                }
+            });
+            
+            path.innerHTML = `
+                <svg width="100%" height="100%" viewBox="0 0 ${demoCanvas.offsetWidth} ${demoCanvas.offsetHeight}" preserveAspectRatio="none">
+                    <path d="${d}" stroke="#${Math.floor(Math.random()*16777215).toString(16)}" stroke-width="3" fill="none" />
+                </svg>
+            `;
+        }
+
+        // Testimonial slider
+        const testimonials = [
+            {
+                quote: "Alat kolaborasi visual ini mengurangi waktu revisi kami dari 2 minggu menjadi hanya 3 hari. Game changer untuk bisnis kreatif!",
+                name: "Diana Putri",
+                role: "Creative Director, Pixel Studio",
+                image: "https://randomuser.me/api/portraits/women/32.jpg"
+            },
+            {
+                quote: "Klien kami sekarang bisa memberikan feedback yang lebih spesifik dan jelas. Tidak ada lagi salah paham tentang revisi desain!",
+                name: "Andi Wijaya",
+                role: "UI/UX Designer, Digital Agency",
+                image: "https://randomuser.me/api/portraits/men/45.jpg"
+            },
+            {
+                quote: "Fitur markup video menghemat waktu produksi kami hingga 40%. Sekarang kita bisa pinpoint frame yang perlu diubah dengan tepat.",
+                name: "Sarah Tan",
+                role: "Video Producer, Media Corp",
+                image: "https://randomuser.me/api/portraits/women/68.jpg"
+            }
+        ];
+
+        let currentTestimonial = 0;
+        const testimonialElement = document.querySelector('.testimonial');
+        
+        function showTestimonial(index) {
+            const testimonial = testimonials[index];
+            testimonialElement.innerHTML = `
+                <p class="testimonial-quote">${testimonial.quote}</p>
+                <div class="testimonial-author">
+                    <img src="${testimonial.image}" alt="${testimonial.name}" class="author-avatar">
+                    <div class="author-info">
+                        <h4>${testimonial.name}</h4>
+                        <p>${testimonial.role}</p>
+                    </div>
+                </div>
+            `;
+            
+            // Re-add animation
+            testimonialElement.style.animation = 'none';
+            void testimonialElement.offsetWidth; // Trigger reflow
+            testimonialElement.style.animation = 'fadeIn 0.8s ease';
+        }
+
+        // Auto-rotate testimonials
+        setInterval(() => {
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+            showTestimonial(currentTestimonial);
+        }, 5000);
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Animation on scroll
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.feature-card, .step, .testimonial');
+            const windowHeight = window.innerHeight;
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const animationPoint = windowHeight - 100;
+                
+                if (elementPosition < animationPoint) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+
+        // Set initial state
+        document.querySelectorAll('.feature-card, .step, .testimonial').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1)';
+        });
+
+        // Run on load and scroll
+        window.addEventListener('load', animateOnScroll);
+        window.addEventListener('scroll', animateOnScroll);
+
+        // Connection lines animation
+        function createConnections() {
+            // Remove existing connections
+            document.querySelectorAll('.connection-line').forEach(el => el.remove());
+            
+            const core = document.querySelector('.visualization-core');
+            const nodes = document.querySelectorAll('.visualization-node');
+            const container = document.querySelector('.visualization-container');
+            
+            nodes.forEach(node => {
+                const line = document.createElement('div');
+                line.className = 'connection-line';
+                
+                const coreRect = core.getBoundingClientRect();
+                const nodeRect = node.getBoundingClientRect();
+                const containerRect = container.getBoundingClientRect();
+                
+                const coreX = coreRect.left + coreRect.width/2 - containerRect.left;
+                const coreY = coreRect.top + coreRect.height/2 - containerRect.top;
+                const nodeX = nodeRect.left + nodeRect.width/2 - containerRect.left;
+                const nodeY = nodeRect.top + nodeRect.height/2 - containerRect.top;
+                
+                const length = Math.sqrt(Math.pow(nodeX - coreX, 2) + Math.pow(nodeY - coreY, 2));
+                const angle = Math.atan2(nodeY - coreY, nodeX - coreX);
+                
+                line.style.width = `${length}px`;
+                line.style.left = `${coreX}px`;
+                line.style.top = `${coreY}px`;
+                line.style.transform = `rotate(${angle}rad)`;
+                line.style.opacity = '0';
+                
+                container.appendChild(line);
+                
+                // Animate in
+                setTimeout(() => {
+                    line.style.transition = 'opacity 0.8s ease';
+                    line.style.opacity = '0.3';
+                }, Math.random() * 1000);
+            });
+        }
+
+        // Initial connections
+        createConnections();
+
+        // Animate connections continuously
+        setInterval(createConnections, 3000);
+
+        // Floating animation for visualization nodes
+        const nodes = document.querySelectorAll('.visualization-node');
+        nodes.forEach((node, index) => {
+            node.style.transform = `translate(-50%, -50%) translateY(${Math.random() * 20 - 10}px)`;
+            
+            // Add ripple effect on hover
+            node.addEventListener('mouseenter', () => {
+                const ripple = document.createElement('div');
+                ripple.className = 'node-ripple';
+                ripple.style.backgroundColor = node.style.backgroundColor;
+                node.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.style.transform = 'scale(2)';
+                    ripple.style.opacity = '0';
+                }, 10);
+                
+                setTimeout(() => ripple.remove(), 1000);
+            });
+        });
+
+        // Add styles for dynamic elements
+        const dynamicStyles = document.createElement('style');
+        dynamicStyles.textContent = `
+            /* Demo elements */
+            .demo-comment {
+                position: absolute;
+                width: 200px;
+                background: white;
+                border-radius: 12px;
+                padding: 12px;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+                z-index: 10;
+                animation: popIn 0.3s ease-out;
+                border-left: 4px solid var(--primary-500);
+            }
+            
+            .comment-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 8px;
+            }
+            
+            .comment-author {
+                font-weight: bold;
+                font-size: 12px;
+                color: var(--primary-500);
+            }
+            
+            .comment-close {
+                background: none;
+                border: none;
+                font-size: 16px;
+                cursor: pointer;
+                color: var(--gray-500);
+                padding: 0 4px;
+            }
+            
+            .comment-body {
+                font-size: 14px;
+                color: var(--gray-700);
+                outline: none;
+            }
+            
+            .demo-rectangle {
+                position: absolute;
+                background: rgba(110, 69, 226, 0.2);
+                border: 2px dashed var(--primary-500);
+                pointer-events: none;
+            }
+            
+            .demo-arrow {
+                position: absolute;
+                height: 2px;
+                background: var(--accent-500);
+                pointer-events: none;
+            }
+            
+            .demo-arrow::after {
+                content: '';
+                position: absolute;
+                right: 0;
+                top: 50%;
+                width: 10px;
+                height: 10px;
+                background: var(--accent-500);
+                transform: translateY(-50%) rotate(45deg);
+                clip-path: polygon(0 0, 100% 50%, 0 100%);
+            }
+            
+            .demo-freehand {
+                position: absolute;
+                pointer-events: none;
+                width: 100%;
+                height: 100%;
+            }
+            
+            /* Node ripple effect */
+            .node-ripple {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                background-color: inherit;
+                opacity: 0.5;
+                transform: scale(1);
+                transition: all 0.8s ease-out;
+                pointer-events: none;
+                z-index: -1;
+            }
+            
+            /* Keyframes */
+            @keyframes popIn {
+                from { transform: scale(0.8); opacity: 0; }
+                to { transform: scale(1); opacity: 1; }
+            }
+        `;
+        document.head.appendChild(dynamicStyles);
+    </script>
+</body>
+</html>
