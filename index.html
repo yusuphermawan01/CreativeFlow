@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CreativeFlow Pro - Platform Manajemen Proyek & Klien untuk Industri Kreatif</title>
+    <style>
+        :root {
+            --primary: #6e45e2;
+            --secondary: #88d3ce;
+            --dark: #2a2d3e;
+            --light: #f9f9ff;
+            --accent: #ff7e5f;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .logo-icon {
+            margin-right: 10px;
+            font-size: 1.8rem;
+        }
+        
+        nav {
+            width: 100%;
+            order: 3;
+            margin-top: 10px;
+            display: none;
+        }
+        
+        nav.active {
+            display: block;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            flex-direction: column;
+            background-color: rgba(0,0,0,0.1);
+            border-radius: 10px;
+            padding: 10px;
+        }
+        
+        nav ul li {
+            margin: 5px 0;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            display: block;
+        }
+        
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .mobile-menu-button {
+            display: block;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            order: 2;
+        }
+        
+        .cta-button {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            white-space: nowrap;
+            order: 1;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 6rem 0 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            position: relative;
+            overflow: hidden;
+            margin-top: 60px;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(255,255,255,0.05)" d="M0,0 L100,0 L100,100 Q50,80 0,100 Z"></path></svg>');
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            background-position: bottom;
+        }
+        
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            padding: 0 10px;
+        }
+        
+        .hero p {
+            font-size: 1rem;
+            max-width: 100%;
+            margin-bottom: 1.5rem;
+            padding: 0 10px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            width: 100%;
+            padding: 0 15px;
+        }
+        
+        .hero-buttons button {
+            width: 100%;
+        }
+        
+        .secondary-button {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .secondary-button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .hero-image {
+            max-width: 100%;
+            width: 100%;
+            margin-top: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.5s ease;
+            padding: 0 15px;
+        }
+        
+        /* USP Section */
+        .usp-section {
+            padding: 3rem 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 0 15px;
+        }
+        
+        .section-title h2 {
+            font-size: 1.8rem;
+            color: var(--dark);
+            margin-bottom: 0.8rem;
+        }
+        
+        .section-title p {
+            color: #666;
+            max-width: 100%;
+            margin: 0 auto;
+            font-size: 0.95rem;
+        }
+        
+        .usp-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .usp-card {
+            background-color: var(--light);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            margin: 0 10px;
+        }
+        
+        .usp-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .usp-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--dark);
+        }
+        
+        .usp-card p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        /* Features Section */
+        .features-section {
+            padding: 3rem 0;
+            background-color: #f5f7fa;
+        }
+        
+        .feature-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            padding: 0 10px;
+        }
+        
+        .feature-tab {
+            padding: 0.6rem 1rem;
+            background-color: transparent;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            color: var(--dark);
+            font-size: 0.9rem;
+        }
+        
+        .feature-tab.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .feature-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .feature-content.active {
+            display: block;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            padding: 0 15px;
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 1.2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+        }
+        
+        .feature-card h3 span {
+            margin-right: 8px;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+        
+        /* Demo Section */
+        .demo-section {
+            padding: 3rem 0;
+            background: linear-gradient(135deg, var(--dark), #3a3d5e);
+            color: white;
+            text-align: center;
+        }
+        
+        .demo-container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .demo-video {
+            width: 100%;
+            height: 200px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .play-button {
+            width: 60px;
+            height: 60px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+        
+        .play-icon {
+            color: white;
+            font-size: 1.5rem;
+            margin-left: 3px;
+        }
+        
+        /* Pricing Section */
+        .pricing-section {
+            padding: 3rem 0;
+            background-color: white;
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            padding: 0 15px;
+        }
+        
+        .pricing-card {
+            background-color: var(--light);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.3rem 1rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            border-bottom-left-radius: 10px;
+        }
+        
+        .pricing-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--dark);
+        }
+        
+        .price {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .price span {
+            font-size: 0.9rem;
+            color: #666;
+            font-weight: 400;
+        }
+        
+        .pricing-features {
+            margin-bottom: 1.5rem;
+        }
+        
+        .pricing-features li {
+            list-style: none;
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+        
+        /* Testimonials */
+        .testimonials-section {
+            padding: 3rem 0;
+            background-color: #f5f7fa;
+        }
+        
+        .testimonial-slider {
+            max-width: 100%;
+            margin: 0 auto;
+            position: relative;
+            padding: 0 15px;
+        }
+        
+        .testimonial {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .testimonial.active {
+            display: block;
+        }
+        
+        .testimonial-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1rem;
+            border: 3px solid var(--primary);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1rem;
+            color: #555;
+            font-size: 0.95rem;
+        }
+        
+        .testimonial-author {
+            font-weight: 700;
+            color: var(--dark);
+            font-size: 1rem;
+        }
+        
+        .testimonial-role {
+            color: #666;
+            font-size: 0.8rem;
+        }
+        
+        .slider-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 3rem 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+        }
+        
+        .cta-container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .cta-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .cta-section p {
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+        
+        .cta-form {
+            display: flex;
+            flex-direction: column;
+            max-width: 100%;
+            margin: 0 auto;
+            gap: 1rem;
+        }
+        
+        .cta-input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            width: 100%;
+        }
+        
+        .cta-submit {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 2rem 0 1rem;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            padding: 0 15px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.6rem;
+        }
+        
+        .footer-column ul li a {
+            color: #bbb;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+        
+        .social-link {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+    .footer-bottom {
+        text-align: center;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: #bbb;
+        font-size: 0.8rem;
+        padding: 0 15px;
+    }
+    
+    /* Demo Widget */
+    .demo-widget {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: var(--primary);
+        color: white;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        z-index: 999;
+        transition: all 0.3s ease;
+    }
+    
+    .demo-widget i {
+        font-size: 1.2rem;
+        animation: pulse 2s infinite;
+    }
+    
+    /* Tablet Styles */
+    @media (min-width: 600px) {
+        .hero h1 {
+            font-size: 2.5rem;
+        }
+        
+        .usp-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .feature-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .pricing-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .footer-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .hero-buttons {
+            flex-direction: row;
+            justify-content: center;
+        }
+        
+        .hero-buttons button {
+            width: auto;
+        }
+        
+        .cta-form {
+            flex-direction: row;
+        }
+        
+        .cta-input {
+            border-radius: 25px 0 0 25px;
+        }
+        
+        .cta-submit {
+            border-radius: 0 25px 25px 0;
+            width: auto;
+        }
+    }
+    
+    /* Desktop Styles */
+    @media (min-width: 900px) {
+        .header-container {
+            flex-wrap: nowrap;
+        }
+        
+        .logo {
+            margin-bottom: 0;
+            font-size: 1.8rem;
+        }
+        
+        nav {
+            display: block;
+            width: auto;
+            order: 2;
+            margin-top: 0;
+        }
+        
+        nav ul {
+            flex-direction: row;
+            background-color: transparent;
+            padding: 0;
+        }
+        
+        nav ul li {
+            margin: 0 0.5rem;
+        }
+        
+        .mobile-menu-button {
+            display: none;
+        }
+        
+        .cta-button {
+            order: 3;
+        }
+        
+        .hero {
+            padding: 8rem 0 4rem;
+            margin-top: 0;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+        }
+        
+        .hero-buttons {
+            flex-direction: row;
+        }
+        
+        .usp-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        
+        .feature-tabs {
+            flex-wrap: nowrap;
+        }
+        
+        .pricing-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        
+        .footer-grid {
+            grid-template-columns: repeat(4, 1fr);
+        }
+        
+        .demo-video {
+            height: 400px;
+        }
+    }
+    
+    /* Large Desktop Styles */
+    @media (min-width: 1200px) {
+        .hero h1 {
+            font-size: 3.5rem;
+        }
+        
+        .hero-image {
+            max-width: 800px;
+        }
+        
+        .demo-video {
+            height: 500px;
+        }
+    }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-magic"></i>
+                </div>
+                <span>CreativeFlow Pro</span>
+            </div>
+            <button class="mobile-menu-button" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="#features">Fitur</a></li>
+                    <li><a href="#usp">Keunggulan</a></li>
+                    <li><a href="#pricing">Harga</a></li>
+                    <li><a href="#testimonials">Testimoni</a></li>
+                    <li><a href="#demo">Demo</a></li>
+                </ul>
+            </nav>
+            <button class="cta-button">Coba Gratis</button>
+        </div>
+    </header>
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container hero-content slide-up">
+        <h1>Kelola Proyek Kreatif dengan Lebih Mudah</h1>
+        <p>Platform all-in-one untuk freelancer dan tim kreatif yang ingin mengelola proyek, berkolaborasi dengan klien, dan menumbuhkan bisnis mereka.</p>
+        <div class="hero-buttons">
+            <button class="cta-button">Mulai 14 Hari Gratis</button>
+            <button class="secondary-button">Lihat Demo</button>
+        </div>
+        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="CreativeFlow Pro Dashboard" class="hero-image">
+    </div>
+</section>
+
+<!-- USP Section -->
+<section class="usp-section" id="usp">
+    <div class="container">
+        <div class="section-title">
+            <h2>Apa yang Membuat Kami Berbeda?</h2>
+            <p>CreativeFlow Pro dirancang khusus untuk memenuhi kebutuhan unik profesional kreatif dengan fitur-fitur inovatif yang tidak Anda temukan di tempat lain.</p>
+        </div>
+        <div class="usp-grid">
+            <div class="usp-card">
+                <div class="usp-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3>AI Feedback Analyzer</h3>
+                <p>Teknologi AI kami menganalisis feedback klien untuk mengidentifikasi pola dan membantu Anda memahami kebutuhan mereka lebih dalam.</p>
+            </div>
+            <div class="usp-card">
+                <div class="usp-icon">
+                    <i class="fas fa-palette"></i>
+                </div>
+                <h3>Visual Collaboration</h3>
+                <p>Anotasi langsung pada desain, video, dan mockup website dengan alat proofing terintegrasi yang dibuat khusus untuk kreatif.</p>
+            </div>
+            <div class="usp-card">
+                <div class="usp-icon">
+                    <i class="fas fa-history"></i>
+                </div>
+                <h3>Version History Pro</h3>
+                <p>Setiap perubahan pada file kreatif Anda dilacak dengan timeline visual, memungkinkan Anda kembali ke versi sebelumnya dengan satu klik.</p>
+            </div>
+            <div class="usp-card">
+                <div class="usp-icon">
+                    <i class="fas fa-project-diagram"></i>
+                </div>
+                <h3>Client Portal Customizable</h3>
+                <p>Setiap klien mendapatkan portal khusus dengan branding Anda, menciptakan pengalaman profesional yang konsisten.</p>
+            </div>
+            <div class="usp-card">
+                <div class="usp-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <h3>Creative Brief Generator</h3>
+                <p>Alat berbasis AI yang membantu Anda membuat creative brief profesional hanya dalam beberapa menit.</p>
+            </div>
+            <div class="usp-card">
+                <div class="usp-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Portfolio Analytics</h3>
+                <p>Lacak bagaimana klien berinteraksi dengan portofolio Anda dan optimalkan untuk lebih banyak proyek.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section" id="features">
+    <div class="container">
+        <div class="section-title">
+            <h2>Fitur Lengkap untuk Kebutuhan Kreatif Anda</h2>
+            <p>Semua alat yang Anda butuhkan untuk mengelola proyek kreatif dari awal hingga akhir dalam satu platform terintegrasi.</p>
+        </div>
+        
+        <div class="feature-tabs">
+            <button class="feature-tab active" onclick="showFeature('project-management')">Manajemen Proyek</button>
+            <button class="feature-tab" onclick="showFeature('client-collab')">Kolaborasi Klien</button>
+            <button class="feature-tab" onclick="showFeature('creative-tools')">Alat Kreatif</button>
+            <button class="feature-tab" onclick="showFeature('business')">Bisnis & Keuangan</button>
+        </div>
+        
+        <div id="project-management" class="feature-content active">
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3><i class="fas fa-columns"></i> Papan Kanban Kustom</h3>
+                    <p>Visualisasikan alur kerja dengan papan Kanban yang sepenuhnya dapat disesuaikan untuk proses kreatif Anda.</p>
+                </div>
+                <div class="feature-card">
+                    <h3><i class="fas fa-tasks"></i> Manajemen Tugas Cerdas</h3>
+                    <p>Buat tugas, sub-tugas, tetapkan tenggat waktu, dan delegasikan dengan mudah ke anggota tim.</p>
+                </div>
+                <div class="feature-card">
+                    <h3><i class="fas fa-calendar-alt"></i> Timeline Interaktif</h3>
+                    <p>Lihat jadwal proyek Anda dalam timeline visual dengan milestone yang dapat disesuaikan.</p>
+                </div>
+                <div class="feature-card">
+                    <h3><i class="fas fa-users"></i> Manajemen Tim</h3>
+                    <p>Undang anggota tim, atur peran dan izin, dan kolaborasi dalam ruang kerja terpusat.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="client-collab" class="feature-content">
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3><i class="fas fa-user-tie"></i> Client Portal</h3>
+                    <p>Portal khusus untuk setiap klien dengan branding Anda, berisi semua proyek dan komunikasi.</p>
+                </div>
+                <div class="feature-card">
+                    <h3><i class="fas fa-comment-dots"></i> Live Feedback</h3>
+                    <p>Klien dapat memberikan komentar langsung pada desain, video, atau mockup website Anda.</p>
+                </div>
+                <div class="feature-card">
+                    <h3><i class="fas fa-check-circle"></i> Approval System</h3>
+                    <p>Sistem persetujuan terstruktur untuk milestone penting dengan tanda tangan digital.</p>
+                </div>
+                <div class="feature-card">
+                    <h3><i class="fas fa-database"></i> Client Database</h3>
+                    <p>CRM sederhana untuk melacak semua interaksi dan proyek sebelumnya dengan setiap klien.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="creative-tools" class="feature-content">
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3><i class="fas fa-drafting-compass"></i> Visual Proofing</h3>
+                    <p>Alat anotasi untuk memberikan feedback langsung pada karya kreatif dalam berbagai format.</p>
+                </div>
+                <div class="feature-card">
+                    <h3><i class="fas fa-code-branch"></i> Version Control</h3>
+                    <p>Lacak semua versi file kreatif Anda dengan timeline visual dan komparasi side-by-side.</p>
+                </div>
+                <div class="feature-card">
+                    <h3><i class="fas fa-briefcase"></i> Portfolio Builder</h3>
+                    <p>Buat portofolio profesional langsung dari proyek yang telah selesai dengan template cantik.</p>
+                </div>
+                <div class="feature-card">
+                    <h3><i class="fas fa-lightbulb"></i> Creative Brief Tool</h3>
+                    <p>Generator brief kreatif berbasis AI yang membantu menyusun panduan proyek yang komprehensif.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="business" class="feature-content">
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3><i class="fas fa-file-contract"></i> Proposal & Kontrak</h3>
+                    <p>Template profesional yang dapat disesuaikan untuk proposal dan kontrak layanan kreatif.</p>
+                </div>
+                <div class="feature-card">
+                    <h3><i class="fas fa-clock"></i> Time Tracking</h3>
+                    <p>Lacak waktu yang dihabiskan untuk setiap proyek dan tugas dengan timer terintegrasi.</p>
+                </div>
+                <div class="feature-card">
+                    <h3><i class="fas fa-receipt"></i> Invoicing Otomatis</h3>
+                    <p>Buat faktur profesional berdasarkan jam kerja atau harga proyek tetap dengan beberapa klik.</p>
+                </div>
+                <div class="feature-card">
+                    <h3><i class="fas fa-chart-pie"></i> Business Reports</h3>
+                    <p>Laporan kinerja bisnis dan profitabilitas proyek untuk membantu Anda membuat keputusan.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Demo Section -->
+<section class="demo-section" id="demo">
+    <div class="container demo-container">
+        <h2 class="fade-in">Lihat CreativeFlow Pro dalam Aksi</h2>
+        <p>Platform kami dirancang untuk membuat alur kerja kreatif Anda lebih lancar dan produktif.</p>
+        <div class="demo-video">
+            <div class="play-button">
+                <i class="fas fa-play play-icon"></i>
+            </div>
+        </div>
+        <button class="cta-button">Request Demo Pribadi</button>
+    </div>
+</section>
+
+<!-- Pricing Section -->
+<section class="pricing-section" id="pricing">
+    <div class="container">
+        <div class="section-title">
+            <h2>Harga yang Sesuai dengan Kebutuhan Anda</h2>
+            <p>Pilih paket yang sesuai dengan ukuran bisnis kreatif Anda. Skalakan kapan saja.</p>
+        </div>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>Freelancer</h3>
+                <div class="price">Rp99.000<span>/bulan</span></div>
+                <ul class="pricing-features">
+                    <li>5 Proyek Aktif</li>
+                    <li>3 Klien</li>
+                    <li>Alat Proofing Dasar</li>
+                    <li>Manajemen Tugas</li>
+                    <li>Pembuatan Faktur</li>
+                    <li>1GB Penyimpanan</li>
+                </ul>
+                <button class="cta-button">Mulai Sekarang</button>
+            </div>
+            <div class="pricing-card popular">
+                <div class="popular-badge">POPULAR</div>
+                <h3>Studio Kecil</h3>
+                <div class="price">Rp249.000<span>/bulan</span></div>
+                <ul class="pricing-features">
+                    <li>15 Proyek Aktif</li>
+                    <li>10 Klien</li>
+                    <li>Alat Proofing Lengkap</li>
+                    <li>Version Control Pro</li>
+                    <li>Portal Klien Kustom</li>
+                    <li>Tim Hingga 5 Orang</li>
+                    <li>10GB Penyimpanan</li>
+                    <li>AI Feedback Analyzer</li>
+                </ul>
+                <button class="cta-button">Mulai Sekarang</button>
+            </div>
+            <div class="pricing-card">
+                <h3>Agency</h3>
+                <div class="price">Rp499.000<span>/bulan</span></div>
+                <ul class="pricing-features">
+                    <li>Proyek Tidak Terbatas</li>
+                    <li>Klien Tidak Terbatas</li>
+                    <li>Semua Fitur Premium</li>
+                    <li>Tim Hingga 20 Orang</li>
+                    <li>50GB Penyimpanan</li>
+                    <li>White-label Client Portal</li>
+                    <li>Prioritas Support</li>
+                    <li>Onboarding Eksklusif</li>
+                </ul>
+                <button class="cta-button">Mulai Sekarang</button>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 2rem;">
+            <p>Butuh solusi khusus untuk tim besar? <a href="#" style="color: var(--primary); font-weight: 600;">Hubungi kami</a> untuk penawaran enterprise.</p>
+            </div>
+        </div>
+    </section>
+<!-- Testimonials Section -->
+<section class="testimonials-section" id="testimonials">
+    <div class="container">
+        <div class="section-title">
+            <h2>Apa Kata Klien Kami</h2>
+            <p>CreativeFlow Pro telah membantu ratusan profesional kreatif mengelola pekerjaan mereka dengan lebih baik.</p>
+        </div>
+        <div class="testimonial-slider">
+            <div class="testimonial active">
+                <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Testimonial" class="testimonial-avatar">
+                <p class="testimonial-text">"Sebagai desainer freelance, CreativeFlow Pro menyederhanakan proses dari menerima brief hingga final approval. Fitur proofing visual menghemat banyak waktu komunikasi dengan klien!"</p>
+                <p class="testimonial-author">Sarah Wijaya</p>
+                <p class="testimonial-role">Freelance Graphic Designer</p>
+            </div>
+            <div class="testimonial">
+                <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Testimonial" class="testimonial-avatar">
+                <p class="testimonial-text">"Version Control-nya menyelamatkan hidup kami! Tidak ada lagi revisi yang tertukar atau file yang hilang. Portal klien juga membuat kami terlihat sangat profesional di mata klien."</p>
+                <p class="testimonial-author">Budi Santoso</p>
+                <p class="testimonial-role">Creative Director, Studio Kreatif</p>
+            </div>
+            <div class="testimonial">
+                <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Testimonial" class="testimonial-avatar">
+                <p class="testimonial-text">"AI Feedback Analyzer adalah game changer. Sekarang kami bisa mengidentifikasi pola feedback klien dan meningkatkan proses kreatif kami berdasarkan data nyata."</p>
+                <p class="testimonial-author">Dewi Kartika</p>
+                <p class="testimonial-role">Pemilik Agen Digital</p>
+            </div>
+            <div class="slider-controls">
+                <div class="slider-dot active" onclick="showTestimonial(0)"></div>
+                <div class="slider-dot" onclick="showTestimonial(1)"></div>
+                <div class="slider-dot" onclick="showTestimonial(2)"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container cta-container">
+        <h2 class="fade-in">Siap Mengubah Cara Anda Bekerja?</h2>
+        <p>Mulai 14 hari gratis tanpa perlu kartu kredit. Anda bisa membatalkan kapan saja.</p>
+        <form class="cta-form">
+            <input type="email" placeholder="Masukkan email Anda" class="cta-input" required>
+            <button type="submit" class="cta-submit">Coba Gratis</button>
+        </form>
+        <p><small>Dengan mendaftar, Anda menyetujui Syarat Layanan dan Kebijakan Privasi kami.</small></p>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-column">
+                <h3>CreativeFlow Pro</h3>
+                <p>Platform manajemen proyek dan klien khusus untuk profesional kreatif. Membantu Anda fokus pada karya terbaik Anda.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Produk</h3>
+                <ul>
+                    <li><a href="#">Fitur</a></li>
+                    <li><a href="#">Harga</a></li>
+                    <li><a href="#">Integrasi</a></li>
+                    <li><a href="#">Pembaruan</a></li>
+                    <li><a href="#">Roadmap</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Perusahaan</h3>
+                <ul>
+                    <li><a href="#">Tentang Kami</a></li>
+                    <li><a href="#">Karir</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Press</a></li>
+                    <li><a href="#">Kontak</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Unique Selling Point</h3>
+                <ul>
+                    <li><a href="fedback.html">AI Feedback Analyzer</a></li>
+                    <li><a href="Visual.html">Visual Collaboration</a></li>
+                    <li><a href="Version.html">Version History Pro</a></li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 CreativeFlow Pro. All rights reserved. | <a href="#">Kebijakan Privasi</a> | <a href="#">Syarat Layanan</a></p>
+        </div>
+    </div>
+</footer>
+
+<!-- Demo Widget -->
+<div class="demo-widget" onclick="openDemoChat()">
+    <i class="fas fa-comment-dots"></i>
+</div>
+
+<script>
+    // Mobile Menu Toggle
+    function toggleMenu() {
+        const nav = document.getElementById('main-nav');
+        nav.classList.toggle('active');
+    }
+
+    // Feature Tabs
+    function showFeature(featureId) {
+        // Hide all feature contents
+        document.querySelectorAll('.feature-content').forEach(content => {
+            content.classList.remove('active');
+        });
+        
+        // Deactivate all tabs
+        document.querySelectorAll('.feature-tab').forEach(tab => {
+            tab.classList.remove('active');
+        });
+        
+        // Show selected feature content
+        document.getElementById(featureId).classList.add('active');
+        
+        // Activate clicked tab
+        event.currentTarget.classList.add('active');
+    }
+    
+    // Testimonial Slider
+    let currentTestimonial = 0;
+    const testimonials = document.querySelectorAll('.testimonial');
+    const dots = document.querySelectorAll('.slider-dot');
+    
+    function showTestimonial(index) {
+        testimonials[currentTestimonial].classList.remove('active');
+        dots[currentTestimonial].classList.remove('active');
+        
+        currentTestimonial = index;
+        
+        testimonials[currentTestimonial].classList.add('active');
+        dots[currentTestimonial].classList.add('active');
+    }
+    
+    // Auto rotate testimonials
+    setInterval(() => {
+        let nextTestimonial = (currentTestimonial + 1) % testimonials.length;
+        showTestimonial(nextTestimonial);
+    }, 5000);
+    
+    // Demo Widget
+    function openDemoChat() {
+        alert('Hai! Ada yang bisa kami bantu? Tim kami siap menjawab pertanyaan Anda tentang CreativeFlow Pro.');
+    }
+    
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            
+            // Close mobile menu if open
+            const nav = document.getElementById('main-nav');
+            nav.classList.remove('active');
+            
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+    
+    // Animation on scroll
+    window.addEventListener('scroll', function() {
+        const elements = document.querySelectorAll('.fade-in, .slide-up');
+        
+        elements.forEach(element => {
+            const elementPosition = element.getBoundingClientRect().top;
+            const windowHeight = window.innerHeight;
+            
+            if (elementPosition < windowHeight - 100) {
+                element.style.opacity = '1';
+                element.style.transform = 'translateY(0)';
+            }
+        });
+    });
+    
+    // Trigger animations on load
+    window.addEventListener('load', function() {
+        const elements = document.querySelectorAll('.fade-in, .slide-up');
+        
+        elements.forEach(element => {
+            const elementPosition = element.getBoundingClientRect().top;
+            const windowHeight = window.innerHeight;
+            
+            if (elementPosition < windowHeight - 100) {
+                element.style.opacity = '1';
+                element.style.transform = 'translateY(0)';
+            }
+        });
+    });
+    
+    // Play button for demo video
+    document.querySelector('.play-button').addEventListener('click', function() {
+        alert('Video demo akan diputar di sini. Untuk demo interaktif, silakan klik "Request Demo Pribadi".');
+    });
+</script>
+</body>
+</html>
