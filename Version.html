@@ -1,0 +1,1639 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Version History Pro | CreativeFlow Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ========== VARIABEL CSS EXTENDED ========== */
+        :root {
+            /* Primary Colors */
+            --primary-50: #f5f2ff;
+            --primary-100: #e9e0ff;
+            --primary-200: #d5c7ff;
+            --primary-300: #b399ff;
+            --primary-400: #8d6bec;
+            --primary-500: #6e45e2;
+            --primary-600: #5d3ac9;
+            --primary-700: #4d2bcb;
+            --primary-800: #3c1fb3;
+            --primary-900: #2c1399;
+            
+            /* Version Colors */
+            --version-current: #6e45e2;
+            --version-past: #88d3ce;
+            --version-archived: #b8b8c7;
+            --version-milestone: #ff7e5f;
+            --version-draft: #ffd166;
+            
+            /* Gradients */
+            --gradient-version: linear-gradient(135deg, var(--primary-500), var(--version-past));
+            --gradient-timeline: linear-gradient(to bottom, 
+                var(--version-milestone), 
+                var(--primary-500), 
+                var(--version-past),
+                var(--version-archived));
+            
+            /* Shadows */
+            --shadow-version: 0 4px 20px rgba(110, 69, 226, 0.15);
+            --shadow-version-hover: 0 8px 30px rgba(110, 69, 226, 0.25);
+            --shadow-diff: 0 2px 10px rgba(0, 0, 0, 0.1);
+            
+            /* Transitions */
+            --transition-fast: 0.15s ease;
+            --transition-normal: 0.3s ease;
+            --transition-slow: 0.5s ease;
+            --transition-bounce: 0.5s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+        }
+
+        /* ========== BASE STYLES ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 
+                       'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 
+                       sans-serif;
+            line-height: 1.6;
+            color: #2a2d3e;
+            background-color: #f9f9ff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 6rem 0;
+            position: relative;
+        }
+
+        /* ========== HEADER ========== */
+        .version-header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all var(--transition-normal);
+        }
+
+        .version-header.scrolled {
+            padding: 0.5rem 0;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-700);
+            text-decoration: none;
+        }
+
+        .logo i {
+            margin-right: 0.5rem;
+            color: var(--primary-500);
+        }
+
+        /* ========== HERO SECTION ========== */
+        .version-hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #2a2d3e, #3c3f54);
+            color: white;
+            padding-top: 6rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .version-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 200%;
+            background: radial-gradient(circle, 
+                      rgba(110, 69, 226, 0.1) 0%, 
+                      transparent 60%);
+            transform: rotate(30deg);
+            z-index: 1;
+        }
+
+        .version-hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+        }
+
+        .version-hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, 
+                        white, 
+                        #a7e4e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .version-hero-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all var(--transition-bounce);
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--gradient-version);
+            color: white;
+            box-shadow: var(--shadow-version);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-version-hover);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* ========== TIMELINE SECTION ========== */
+        .version-timeline {
+            background: white;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--gradient-version);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: #4e526a;
+            max-width: 700px;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-container {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--gradient-timeline);
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        .timeline-items {
+            display: flex;
+            flex-direction: column;
+            gap: 4rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .timeline-item {
+            display: flex;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            justify-content: flex-start;
+            padding-right: calc(50% + 2rem);
+        }
+
+        .timeline-item:nth-child(even) {
+            justify-content: flex-end;
+            padding-left: calc(50% + 2rem);
+        }
+
+        .timeline-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: var(--shadow-version);
+            width: 100%;
+            max-width: 500px;
+            transition: all var(--transition-normal);
+            position: relative;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+
+        .timeline-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-version-hover);
+        }
+
+        .timeline-card::before {
+            content: '';
+            position: absolute;
+            width: 1.5rem;
+            height: 1.5rem;
+            background: var(--version-current);
+            border-radius: 50%;
+            border: 4px solid white;
+            top: 2rem;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-card::before {
+            right: -2.75rem;
+        }
+
+        .timeline-item:nth-child(even) .timeline-card::before {
+            left: -2.75rem;
+        }
+
+        /* Version Type Indicators */
+        .timeline-item.current .timeline-card::before {
+            background: var(--version-current);
+        }
+
+        .timeline-item.past .timeline-card::before {
+            background: var(--version-past);
+        }
+
+        .timeline-item.archived .timeline-card::before {
+            background: var(--version-archived);
+        }
+
+        .timeline-item.milestone .timeline-card::before {
+            background: var(--version-milestone);
+            width: 2rem;
+            height: 2rem;
+        }
+
+        .timeline-item.draft .timeline-card::before {
+            background: var(--version-draft);
+        }
+
+        /* Version Content */
+        .version-date {
+            font-size: 0.9rem;
+            color: var(--primary-500);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .version-date i {
+            margin-right: 0.5rem;
+        }
+
+        .version-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .version-description {
+            color: #4e526a;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .version-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: 0.85rem;
+            color: #808095;
+            margin-bottom: 1.5rem;
+        }
+
+        .version-meta span {
+            display: flex;
+            align-items: center;
+        }
+
+        .version-meta i {
+            margin-right: 0.5rem;
+        }
+
+        .version-tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .tag-milestone {
+            background: rgba(255, 126, 95, 0.1);
+            color: var(--version-milestone);
+        }
+
+        .tag-draft {
+            background: rgba(255, 209, 102, 0.1);
+            color: var(--version-draft);
+        }
+
+        .version-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-500);
+            color: var(--primary-500);
+        }
+
+        .btn-outline:hover {
+            background: rgba(110, 69, 226, 0.05);
+        }
+
+        /* ========== COMPARE SECTION ========== */
+        .version-compare {
+            background: #f9f9ff;
+        }
+
+        .compare-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .compare-column {
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        .compare-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e6e6f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .compare-title {
+            font-weight: 600;
+            color: var(--primary-500);
+        }
+
+        .compare-date {
+            font-size: 0.85rem;
+            color: #808095;
+        }
+
+        .compare-content {
+            padding: 1.5rem;
+            height: 400px;
+            overflow-y: auto;
+        }
+
+        .compare-diff {
+            background: #f5f2ff;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .diff-added {
+            background: rgba(136, 211, 206, 0.2);
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            text-decoration: underline;
+        }
+
+        .diff-removed {
+            background: rgba(255, 126, 95, 0.2);
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            text-decoration: line-through;
+        }
+
+        .diff-section {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary-500);
+        }
+
+        /* ========== RESTORE SECTION ========== */
+        .version-restore {
+            background: linear-gradient(135deg, var(--primary-500), var(--version-past));
+            color: white;
+            text-align: center;
+        }
+
+        .restore-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .restore-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .restore-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .btn-white {
+            background: white;
+            color: var(--primary-500);
+        }
+
+        .btn-white:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-lg {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+        }
+
+        /* ========== FOOTER ========== */
+        .version-footer {
+            background: #2a2d3e;
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 35px;
+            height: 2px;
+            background: var(--gradient-version);
+            border-radius: 2px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all var(--transition-fast);
+            font-size: 0.9rem;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+        }
+
+        /* ========== MODAL ========== */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all var(--transition-normal);
+        }
+
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 1rem;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 2rem;
+            transform: translateY(20px);
+            transition: all var(--transition-normal);
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-500);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #808095;
+        }
+
+        .modal-body {
+            margin-bottom: 2rem;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+
+        /* ========== ANIMATIONS ========== */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(30px); }
+            to { transform: translateY(0); }
+        }
+
+        /* ========== RESPONSIVE DESIGN ========== */
+        @media (max-width: 1199.98px) {
+            .version-hero-title {
+                font-size: 3rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 991.98px) {
+            .timeline-line {
+                left: 2rem;
+            }
+            
+            .timeline-item:nth-child(odd),
+            .timeline-item:nth-child(even) {
+                padding-left: 4.5rem;
+                padding-right: 1rem;
+                justify-content: flex-start;
+            }
+            
+            .timeline-item:nth-child(odd) .timeline-card::before,
+            .timeline-item:nth-child(even) .timeline-card::before {
+                left: -2.75rem;
+                right: auto;
+            }
+            
+            .compare-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 767.98px) {
+            .version-hero {
+                padding-top: 5rem;
+                text-align: center;
+            }
+            
+            .version-hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .version-hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+            }
+            
+            .restore-title {
+                font-size: 2rem;
+            }
+            
+            .restore-subtitle {
+                font-size: 1rem;
+            }
+            
+            .restore-actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .version-title {
+                font-size: 1.25rem;
+            }
+            
+            .version-actions {
+                flex-direction: column;
+            }
+            
+            .modal-content {
+                width: 95%;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ========== HEADER ========== -->
+    <header class="version-header" id="header">
+        <div class="container">
+            <div class="header-container">
+                <a href="#" class="logo">
+                    <i class="fas fa-history"></i>
+                    <span>Version History Pro</span>
+                </a>
+                
+                <nav>
+                    <ul class="nav-list">
+                        <li><a href="#timeline">Timeline</a></li>
+                        <li><a href="#compare">Compare</a></li>
+                        <li><a href="#restore">Restore</a></li>
+                    </ul>
+                </nav>
+                
+                <a href="#" class="btn btn-primary">Try Now</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========== HERO SECTION ========== -->
+    <section class="version-hero">
+        <div class="container">
+            <div class="version-hero-content">
+                <h1 class="version-hero-title">Never Lose Creative Work Again</h1>
+                <p class="version-hero-subtitle">Setiap perubahan pada file kreatif Anda dilacak dengan timeline visual, memungkinkan Anda kembali ke versi sebelumnya dengan satu klik.</p>
+                <div class="hero-buttons">
+                    <a href="#timeline" class="btn btn-primary">Explore Timeline</a>
+                    <a href="#demo" class="btn btn-secondary">See How It Works</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== TIMELINE SECTION ========== -->
+    <section class="version-timeline" id="timeline">
+        <div class="container">
+            <h2 class="section-title">Version <span class="text-gradient">Timeline</span></h2>
+            <p class="section-subtitle">Visual history of all your creative iterations</p>
+            
+            <div class="timeline-container">
+                <div class="timeline-line"></div>
+                
+                <div class="timeline-items">
+                    <!-- Current Version -->
+                    <div class="timeline-item current">
+                        <div class="timeline-card">
+                            <div class="version-date">
+                                <i class="fas fa-clock"></i> Today, 10:30 AM
+                            </div>
+                            <h3 class="version-title">Final Client Approval</h3>
+                            <p class="version-description">Client approved all changes with minor color adjustments to the logo. Updated the final deliverable package.</p>
+                            <div class="version-meta">
+                                <span><i class="fas fa-user"></i> You</span>
+                                <span><i class="fas fa-file"></i> Brand Guidelines.pdf</span>
+                                <span><i class="fas fa-save"></i> 12.4 MB</span>
+                            </div>
+                            <div class="version-actions">
+                                <button class="btn btn-sm btn-primary restore-btn">Restore</button>
+                                <button class="btn btn-sm btn-outline compare-btn">Compare</button>
+                                <button class="btn btn-sm btn-outline download-btn">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Past Version -->
+                    <div class="timeline-item past">
+                        <div class="timeline-card">
+                            <div class="version-date">
+                                <i class="fas fa-clock"></i> Yesterday, 4:15 PM
+                            </div>
+                            <h3 class="version-title">Client Feedback Round 3</h3>
+                            <p class="version-description">Updated typography based on client's request. Added new section for social media guidelines.</p>
+                            <div class="version-meta">
+                                <span><i class="fas fa-user"></i> Client</span>
+                                <span><i class="fas fa-file"></i> Brand Guidelines.pdf</span>
+                                <span><i class="fas fa-save"></i> 11.8 MB</span>
+                            </div>
+                            <div class="version-actions">
+                                <button class="btn btn-sm btn-primary restore-btn">Restore</button>
+                                <button class="btn btn-sm btn-outline compare-btn">Compare</button>
+                                <button class="btn btn-sm btn-outline download-btn">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Milestone Version -->
+                    <div class="timeline-item milestone">
+                        <div class="timeline-card">
+                            <div class="version-date">
+                                <i class="fas fa-clock"></i> March 15, 2023
+                            </div>
+                            <h3 class="version-title">First Client Submission</h3>
+                            <p class="version-description">Initial complete version sent to client for review. Includes all brand elements and usage guidelines.</p>
+                            <div class="version-meta">
+                                <span><i class="fas fa-user"></i> You</span>
+                                <span><i class="fas fa-file"></i> Brand Guidelines.pdf</span>
+                                <span><i class="fas fa-save"></i> 10.2 MB</span>
+                                <span class="version-tag tag-milestone">
+                                    <i class="fas fa-flag"></i> Milestone
+                                </span>
+                            </div>
+                            <div class="version-actions">
+                                <button class="btn btn-sm btn-primary restore-btn">Restore</button>
+                                <button class="btn btn-sm btn-outline compare-btn">Compare</button>
+                                <button class="btn btn-sm btn-outline download-btn">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Archived Version -->
+                    <div class="timeline-item archived">
+                        <div class="timeline-card">
+                            <div class="version-date">
+                                <i class="fas fa-clock"></i> March 10, 2023
+                            </div>
+                            <h3 class="version-title">Internal Review Draft</h3>
+                            <p class="version-description">Prepared for team review before client submission. Missing some application examples.</p>
+                            <div class="version-meta">
+                                <span><i class="fas fa-user"></i> Team</span>
+                                <span><i class="fas fa-file"></i> Brand Guidelines.pdf</span>
+                                <span><i class="fas fa-save"></i> 9.7 MB</span>
+                            </div>
+                            <div class="version-actions">
+                                <button class="btn btn-sm btn-primary restore-btn">Restore</button>
+                                <button class="btn btn-sm btn-outline compare-btn">Compare</button>
+                                <button class="btn btn-sm btn-outline download-btn">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Draft Version -->
+                    <div class="timeline-item draft">
+                        <div class="timeline-card">
+                            <div class="version-date">
+                                <i class="fas fa-clock"></i> March 5, 2023
+                            </div>
+                            <h3 class="version-title">Initial Concept Draft</h3>
+                            <p class="version-description">First draft with basic brand elements. Needs refinement and more examples.</p>
+                            <div class="version-meta">
+                                <span><i class="fas fa-user"></i> You</span>
+                                <span><i class="fas fa-file"></i> Brand Guidelines.pdf</span>
+                                <span><i class="fas fa-save"></i> 7.3 MB</span>
+                                <span class="version-tag tag-draft">
+                                    <i class="fas fa-pencil-alt"></i> Draft
+                                </span>
+                            </div>
+                            <div class="version-actions">
+                                <button class="btn btn-sm btn-primary restore-btn">Restore</button>
+                                <button class="btn btn-sm btn-outline compare-btn">Compare</button>
+                                <button class="btn btn-sm btn-outline download-btn">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== COMPARE SECTION ========== -->
+    <section class="version-compare" id="compare">
+        <div class="container">
+            <h2 class="section-title">Compare <span class="text-gradient">Versions</span></h2>
+            <p class="section-subtitle">See exactly what changed between any two versions</p>
+            
+            <div class="compare-container">
+                <div class="compare-column">
+                    <div class="compare-header">
+                        <h3 class="compare-title">Version 4.2</h3>
+                        <div class="compare-date">March 15, 2023</div>
+                    </div>
+                    <div class="compare-content">
+                        <div class="compare-diff">
+                            <div class="diff-section">Brand Colors</div>
+                            <p>Primary color changed from <span class="diff-removed">#4D2BCB</span> to <span class="diff-added">#6E45E2</span></p>
+                            <p>Added secondary color palette with 5 new variations</p>
+                            <p>Updated gradient combinations in application examples</p>
+                        </div>
+                        <div class="compare-diff">
+                            <div class="diff-section">Typography</div>
+                            <p>Main heading changed from <span class="diff-removed">Montserrat</span> to <span class="diff-added">Poppins</span></p>
+                            <p>Base font size increased from <span class="diff-removed">16px</span> to <span class="diff-added">18px</span></p>
+                            <p>Added new typography scale for web and print</p>
+                        </div>
+                        <div class="compare-diff">
+                            <div class="diff-section">New Content</div>
+                            <p>Added social media branding guidelines (12 pages)</p>
+                            <p>Included email signature templates</p>
+                            <p>Added brand voice and messaging guidelines</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="compare-column">
+                    <div class="compare-header">
+                        <h3 class="compare-title">Version 4.1</h3>
+                        <div class="compare-date">March 10, 2023</div>
+                    </div>
+                    <div class="compare-content">
+                        <div class="compare-diff">
+                            <div class="diff-section">Brand Colors</div>
+                            <p>Primary color: #4D2BCB</p>
+                            <p>Secondary colors not defined yet</p>
+                            <p>Basic color usage examples only</p>
+                        </div>
+                        <div class="compare-diff">
+                            <div class="diff-section">Typography</div>
+                            <p>Main heading: Montserrat Bold</p>
+                            <p>Base font size: 16px</p>
+                            <p>Limited typography examples</p>
+                        </div>
+                        <div class="compare-diff">
+                            <div class="diff-section">Missing Content</div>
+                            <p>No social media guidelines</p>
+                            <p>No email templates</p>
+                            <p>No brand voice documentation</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== RESTORE SECTION ========== -->
+    <section class="version-restore" id="restore">
+        <div class="container">
+            <h2 class="restore-title">One-Click Version Restoration</h2>
+            <p class="restore-subtitle">Kembali ke versi sebelumnya dengan satu klik. Tidak ada yang pernah hilang secara permanen.</p>
+            
+            <div class="restore-actions">
+                <a href="#" class="btn btn-primary btn-lg">Start Free Trial</a>
+                <a href="#" class="btn btn-white btn-lg">See Pricing</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="version-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <a href="#" class="logo">
+                        <i class="fas fa-history"></i>
+                        <span>Version History Pro</span>
+                    </a>
+                    <p>CreativeFlow Pro's version control system for creative professionals.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Product</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Features</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">Integrations</a></li>
+                        <li><a href="#">Updates</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Tutorials</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Legal</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 CreativeFlow Pro. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== RESTORE MODAL ========== -->
+    <div class="modal" id="restoreModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Restore Version</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Anda akan mengembalikan file ke versi ini. Versi saat ini akan disimpan sebagai draft.</p>
+                <div class="version-preview">
+                    <h4>Version Details</h4>
+                    <p><strong>Judul:</strong> <span id="modalVersionTitle">First Client Submission</span></p>
+                    <p><strong>Tanggal:</strong> <span id="modalVersionDate">March 15, 2023</span></p>
+                    <p><strong>Ukuran:</strong> <span id="modalVersionSize">10.2 MB</span></p>
+                                        <p><strong>Pembuat:</strong> <span id="modalVersionAuthor">You</span></p>
+                </div>
+                <div class="alert">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>Anda akan kehilangan perubahan yang belum disimpan di versi saat ini.</span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline cancel-btn">Cancel</button>
+                <button class="btn btn-primary confirm-restore-btn">Confirm Restore</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== COMPARE MODAL ========== -->
+    <div class="modal" id="compareModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Compare Versions</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="compare-selector">
+                    <div class="compare-option">
+                        <label>Version 1:</label>
+                        <select class="version-select">
+                            <option>Version 4.2 (Current)</option>
+                            <option>Version 4.1</option>
+                            <option>Version 4.0</option>
+                            <option>Version 3.2</option>
+                        </select>
+                    </div>
+                    <div class="compare-option">
+                        <label>Version 2:</label>
+                        <select class="version-select">
+                            <option>Version 4.1</option>
+                            <option>Version 4.0</option>
+                            <option>Version 3.2</option>
+                            <option>Version 3.1</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="compare-preview">
+                    <h4>Preview Changes</h4>
+                    <div class="diff-preview">
+                        <p>5 color changes</p>
+                        <p>3 typography updates</p>
+                        <p>12 new pages added</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline cancel-btn">Cancel</button>
+                <button class="btn btn-primary compare-now-btn">Compare Now</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== JAVASCRIPT ========== -->
+    <script>
+        // Header Scroll Effect
+        const header = document.querySelector('.version-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Timeline Animation
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        
+        const animateTimeline = () => {
+            timelineItems.forEach(item => {
+                const itemTop = item.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (itemTop < windowHeight * 0.75) {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }
+            });
+        };
+
+        // Set initial state
+        timelineItems.forEach(item => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(30px)';
+            item.style.transition = 'all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1)';
+        });
+
+        // Run on load and scroll
+        window.addEventListener('load', animateTimeline);
+        window.addEventListener('scroll', animateTimeline);
+
+        // Modal Functionality
+        const restoreModal = document.getElementById('restoreModal');
+        const compareModal = document.getElementById('compareModal');
+        const modalCloseBtns = document.querySelectorAll('.modal-close, .cancel-btn');
+        
+        // Restore Button Click
+        document.querySelectorAll('.restore-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const card = this.closest('.timeline-card');
+                const title = card.querySelector('.version-title').textContent;
+                const date = card.querySelector('.version-date').textContent;
+                const author = card.querySelector('.version-meta span').textContent;
+                
+                document.getElementById('modalVersionTitle').textContent = title;
+                document.getElementById('modalVersionDate').textContent = date.split(': ')[1];
+                document.getElementById('modalVersionAuthor').textContent = author.split(': ')[1];
+                
+                restoreModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        
+        // Compare Button Click
+        document.querySelectorAll('.compare-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                compareModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        
+        // Close Modals
+        modalCloseBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                restoreModal.classList.remove('active');
+                compareModal.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+        
+        // Confirm Restore
+        document.querySelector('.confirm-restore-btn').addEventListener('click', function() {
+            alert('Version restored successfully!');
+            restoreModal.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        
+        // Compare Now
+        document.querySelector('.compare-now-btn').addEventListener('click', function() {
+            const version1 = document.querySelector('.version-select:first-child').value;
+            const version2 = document.querySelector('.version-select:last-child').value;
+            alert(`Comparing ${version1} with ${version2}`);
+            compareModal.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        // Version Selection for Comparison
+        let selectedVersions = [];
+        
+        document.querySelectorAll('.timeline-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                if (e.target.classList.contains('btn')) return;
+                
+                this.classList.toggle('selected');
+                
+                if (this.classList.contains('selected')) {
+                    if (selectedVersions.length >= 2) {
+                        selectedVersions[0].classList.remove('selected');
+                        selectedVersions.shift();
+                    }
+                    selectedVersions.push(this);
+                } else {
+                    selectedVersions = selectedVersions.filter(v => v !== this);
+                }
+                
+                updateCompareButton();
+            });
+        });
+        
+        function updateCompareButton() {
+            const compareBtn = document.querySelector('.compare-now-btn');
+            if (selectedVersions.length === 2) {
+                compareBtn.disabled = false;
+                compareBtn.textContent = `Compare ${selectedVersions[0].querySelector('.version-title').textContent} & ${selectedVersions[1].querySelector('.version-title').textContent}`;
+            } else {
+                compareBtn.disabled = true;
+                compareBtn.textContent = 'Select 2 versions to compare';
+            }
+        }
+
+        // Dynamic Connection Lines
+        function createConnections() {
+            // Remove existing connections
+            document.querySelectorAll('.connection-line').forEach(el => el.remove());
+            
+            const core = document.querySelector('.timeline-line');
+            const items = document.querySelectorAll('.timeline-item');
+            const container = document.querySelector('.timeline-container');
+            
+            items.forEach(item => {
+                const dot = item.querySelector('.timeline-card::before');
+                const line = document.createElement('div');
+                line.className = 'connection-line';
+                
+                const coreRect = core.getBoundingClientRect();
+                const itemRect = item.getBoundingClientRect();
+                const containerRect = container.getBoundingClientRect();
+                
+                const coreX = coreRect.left + coreRect.width/2 - containerRect.left;
+                const coreY = coreRect.top + coreRect.height/2 - containerRect.top;
+                const itemX = itemRect.left + itemRect.width/2 - containerRect.left;
+                const itemY = itemRect.top + itemRect.height/2 - containerRect.top;
+                
+                const length = Math.sqrt(Math.pow(itemX - coreX, 2) + Math.pow(itemY - coreY, 2));
+                const angle = Math.atan2(itemY - coreY, itemX - coreX);
+                
+                line.style.width = `${length}px`;
+                line.style.left = `${coreX}px`;
+                line.style.top = `${coreY}px`;
+                line.style.transform = `rotate(${angle}rad)`;
+                line.style.opacity = '0';
+                
+                container.appendChild(line);
+                
+                // Animate in
+                setTimeout(() => {
+                    line.style.transition = 'opacity 0.8s ease';
+                    line.style.opacity = '0.3';
+                }, Math.random() * 1000);
+            });
+        }
+
+        // Initial connections
+        createConnections();
+
+        // Animate connections continuously
+        setInterval(createConnections, 3000);
+
+        // Add styles for dynamic elements
+        const dynamicStyles = document.createElement('style');
+        dynamicStyles.textContent = `
+            /* Connection Lines */
+            .connection-line {
+                position: absolute;
+                height: 2px;
+                background: linear-gradient(to right, rgba(110, 69, 226, 0.1), rgba(110, 69, 226, 0.3), rgba(110, 69, 226, 0.1));
+                transform-origin: left center;
+                z-index: 1;
+                pointer-events: none;
+            }
+            
+            /* Selected Version */
+            .timeline-card.selected {
+                border: 2px solid var(--primary-500);
+                box-shadow: 0 0 0 4px rgba(110, 69, 226, 0.1);
+            }
+            
+            /* Alert Box */
+            .alert {
+                background: rgba(255, 126, 95, 0.1);
+                border-left: 4px solid var(--version-milestone);
+                padding: 1rem;
+                margin-top: 1.5rem;
+                border-radius: 0.25rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            
+            .alert i {
+                color: var(--version-milestone);
+            }
+            
+            /* Compare Selector */
+            .compare-selector {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+                margin-bottom: 2rem;
+            }
+            
+            .compare-option {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .version-select {
+                padding: 0.5rem;
+                border-radius: 0.25rem;
+                border: 1px solid var(--gray-200);
+            }
+            
+            /* Diff Preview */
+            .diff-preview {
+                background: var(--gray-50);
+                padding: 1rem;
+                border-radius: 0.5rem;
+                margin-top: 1rem;
+            }
+            
+            .diff-preview p {
+                padding: 0.5rem;
+                border-bottom: 1px solid var(--gray-100);
+            }
+            
+            /* Text Gradient */
+            .text-gradient {
+                background: var(--gradient-version);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+            
+            /* Animations */
+            @keyframes pulse {
+                0% { transform: scale(1); opacity: 0.3; }
+                100% { transform: scale(1.1); opacity: 0.5; }
+            }
+        `;
+        document.head.appendChild(dynamicStyles);
+
+        // Version Preview on Hover
+        document.querySelectorAll('.timeline-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Mobile Menu Toggle
+        const menuToggle = document.createElement('button');
+        menuToggle.className = 'menu-toggle';
+        menuToggle.innerHTML = '<span></span><span></span><span></span>';
+        menuToggle.addEventListener('click', function() {
+            document.querySelector('nav').classList.toggle('active');
+            this.classList.toggle('active');
+        });
+        
+        document.querySelector('.header-container').appendChild(menuToggle);
+
+        // Add mobile menu styles
+        const mobileStyles = document.createElement('style');
+        mobileStyles.textContent = `
+            /* Mobile Menu */
+            .menu-toggle {
+                display: none;
+                flex-direction: column;
+                justify-content: space-between;
+                width: 28px;
+                height: 20px;
+                background: none;
+                border: none;
+                cursor: pointer;
+                z-index: 1001;
+            }
+            
+            .menu-toggle span {
+                display: block;
+                height: 3px;
+                width: 100%;
+                background: var(--primary-500);
+                border-radius: 3px;
+                transition: all 0.3s ease;
+            }
+            
+            .menu-toggle.active span:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+            
+            .menu-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .menu-toggle.active span:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+            
+            nav {
+                display: none;
+            }
+            
+            nav.active {
+                display: block;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: white;
+                z-index: 1000;
+                padding: 6rem 2rem;
+            }
+            
+            .nav-list {
+                list-style: none;
+            }
+            
+            .nav-list li {
+                margin-bottom: 1rem;
+            }
+            
+            .nav-list a {
+                display: block;
+                padding: 1rem;
+                font-size: 1.2rem;
+                color: var(--gray-900);
+                text-decoration: none;
+            }
+            
+            @media (max-width: 768px) {
+                .menu-toggle {
+                    display: flex;
+                }
+                
+                nav {
+                    display: none;
+                }
+                
+                .header-container a.btn {
+                    display: none;
+                }
+            }
+        `;
+        document.head.appendChild(mobileStyles);
+
+        // Smooth Scrolling for Anchor Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    document.querySelector('nav').classList.remove('active');
+                    document.querySelector('.menu-toggle').classList.remove('active');
+                }
+            });
+        });
+
+        // Version Type Filter
+        const filterButtons = document.createElement('div');
+        filterButtons.className = 'version-filters';
+        filterButtons.innerHTML = `
+            <button class="filter-btn active" data-filter="all">All Versions</button>
+            <button class="filter-btn" data-filter="current">Current</button>
+            <button class="filter-btn" data-filter="past">Past</button>
+            <button class="filter-btn" data-filter="milestone">Milestones</button>
+            <button class="filter-btn" data-filter="draft">Drafts</button>
+        `;
+        document.querySelector('.version-timeline .container').insertBefore(filterButtons, document.querySelector('.timeline-container'));
+
+        // Filter Functionality
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                const filter = this.dataset.filter;
+                
+                document.querySelectorAll('.timeline-item').forEach(item => {
+                    if (filter === 'all') {
+                        item.style.display = 'flex';
+                    } else {
+                        if (item.classList.contains(filter)) {
+                            item.style.display = 'flex';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    }
+                });
+            });
+        });
+
+        // Add filter styles
+        const filterStyles = document.createElement('style');
+        filterStyles.textContent = `
+            /* Version Filters */
+            .version-filters {
+                display: flex;
+                gap: 0.5rem;
+                margin-bottom: 2rem;
+                flex-wrap: wrap;
+            }
+            
+            .filter-btn {
+                padding: 0.5rem 1rem;
+                border-radius: 50px;
+                background: var(--gray-100);
+                border: none;
+                color: var(--gray-700);
+                font-weight: 500;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+            
+            .filter-btn.active {
+                background: var(--primary-500);
+                color: white;
+            }
+            
+            .filter-btn:hover {
+                background: var(--primary-400);
+                color: white;
+            }
+        `;
+        document.head.appendChild(filterStyles);
+
+        // Load More Versions (Simulated)
+        const loadMoreBtn = document.createElement('button');
+        loadMoreBtn.className = 'btn btn-outline';
+        loadMoreBtn.textContent = 'Load More Versions';
+        loadMoreBtn.style.margin = '2rem auto 0';
+        loadMoreBtn.style.display = 'block';
+        loadMoreBtn.addEventListener('click', function() {
+            // Simulate loading
+            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+            this.disabled = true;
+            
+            setTimeout(() => {
+                // Add more versions (in a real app, this would come from an API)
+                const timelineItems = document.querySelector('.timeline-items');
+                
+                for (let i = 0; i < 3; i++) {
+                    const newItem = document.createElement('div');
+                    newItem.className = 'timeline-item past';
+                    newItem.innerHTML = `
+                        <div class="timeline-card">
+                            <div class="version-date">
+                                <i class="fas fa-clock"></i> March ${i+1}, 2023
+                            </div>
+                            <h3 class="version-title">Older Version ${i+1}</h3>
+                            <p class="version-description">Previous iteration of the project with different design approaches.</p>
+                            <div class="version-meta">
+                                <span><i class="fas fa-user"></i> Team</span>
+                                <span><i class="fas fa-file"></i> Project File</span>
+                                <span><i class="fas fa-save"></i> ${Math.floor(Math.random() * 5) + 5} MB</span>
+                            </div>
+                            <div class="version-actions">
+                                <button class="btn btn-sm btn-primary restore-btn">Restore</button>
+                                <button class="btn btn-sm btn-outline compare-btn">Compare</button>
+                                <button class="btn btn-sm btn-outline download-btn">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    timelineItems.appendChild(newItem);
+                }
+                
+                this.textContent = 'Load More Versions';
+                this.disabled = false;
+                
+                // Reinitialize animations
+                animateTimeline();
+                createConnections();
+            }, 1500);
+        });
+        document.querySelector('.timeline-container').appendChild(loadMoreBtn);
+    </script>
+</body>
+</html>
