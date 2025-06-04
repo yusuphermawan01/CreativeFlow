@@ -1,0 +1,1502 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analisis Umpan Balik AI | CreativeFlow Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ========== GAYA GLOBAL ========== */
+        :root {
+            --primary: #6e45e2;
+            --primary-light: #8d6bec;
+            --primary-dark: #4d2bcb;
+            --secondary: #88d3ce;
+            --secondary-light: #a7e4e0;
+            --secondary-dark: #69c2bd;
+            --dark: #2a2d3e;
+            --dark-light: #3c3f54;
+            --dark-lighter: #4e526a;
+            --light: #f9f9ff;
+            --light-dark: #e6e6f0;
+            --accent: #ff7e5f;
+            --accent-light: #ff957a;
+            --accent-dark: #ff6540;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --gradient-primary: linear-gradient(135deg, var(--primary), var(--secondary));
+            --gradient-accent: linear-gradient(135deg, var(--accent), #ff9a44);
+            --gradient-dark: linear-gradient(135deg, var(--dark), #3a3d5e);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        @font-face {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 300;
+            src: url(https://fonts.gstatic.com/s/poppins/v20/pxiByp8kv8JHgFVrLDz8Z1xlFQ.woff2) format('woff2');
+        }
+        @font-face {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 400;
+            src: url(https://fonts.gstatic.com/s/poppins/v20/pxiEyp8kv8JHgFVrJJfecg.woff2) format('woff2');
+        }
+        @font-face {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 500;
+            src: url(https://fonts.gstatic.com/s/poppins/v20/pxiByp8kv8JHgFVrLGT9Z1xlFQ.woff2) format('woff2');
+        }
+        @font-face {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 600;
+            src: url(https://fonts.gstatic.com/s/poppins/v20/pxiByp8kv8JHgFVrLEj6Z1xlFQ.woff2) format('woff2');
+        }
+        @font-face {
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 700;
+            src: url(https://fonts.gstatic.com/s/poppins/v20/pxiByp8kv8JHgFVrLCz7Z1xlFQ.woff2) format('woff2');
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        ::selection {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* ========== KOMPONEN TATA LETAK ========== */
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            font-size: 1rem;
+            color: var(--dark-lighter);
+            max-width: 700px;
+            margin-bottom: 2rem;
+        }
+
+        .text-gradient {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ========== TOMBOL ========== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(110, 69, 226, 0.3);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-accent {
+            background: var(--gradient-accent);
+            color: white;
+        }
+
+        .btn-accent:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 126, 95, 0.3);
+        }
+
+        /* ========== HEADER ========== */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            padding: 15px 0;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        header.scrolled {
+            padding: 10px 0;
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            text-decoration: none;
+            margin-right: 15px;
+        }
+
+        .logo-icon {
+            margin-right: 8px;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        nav {
+            order: 3;
+            width: 100%;
+            margin-top: 15px;
+            display: none;
+        }
+
+        nav.active {
+            display: block;
+        }
+
+        nav ul {
+            display: flex;
+            flex-direction: column;
+            list-style: none;
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul li {
+            margin: 5px 0;
+        }
+
+        nav ul li a {
+            display: block;
+            padding: 10px 15px;
+            color: var(--dark);
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background: rgba(110, 69, 226, 0.1);
+            color: var(--primary);
+        }
+
+        .menu-toggle {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background: var(--dark);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+
+        .header-btn {
+            order: 2;
+        }
+
+        /* ========== BAGIAN HERO ========== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background: var(--gradient-dark);
+            color: white;
+            padding: 100px 0 60px;
+            text-align: center;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 100%;
+            margin-bottom: 40px;
+        }
+
+        .hero-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            line-height: 1.2;
+            background: linear-gradient(to right, white, var(--secondary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textGradient 8s infinite alternate;
+        }
+
+        .hero-subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            font-weight: 300;
+            padding: 0 15px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 1.5rem;
+            padding: 0 15px;
+        }
+
+        /* ========== VISUALISASI AI ========== */
+        .ai-visualization {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            margin: 0 auto;
+        }
+
+        .ai-core {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, var(--primary), transparent 60%);
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.4;
+            animation: pulse 8s infinite alternate;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .data-node {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            transform: translate(-50%, -50%);
+            animation: float 6s infinite ease-in-out;
+            z-index: 2;
+            transition: all 0.5s ease;
+        }
+
+        .data-node:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .connection-line {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.5), rgba(255,255,255,0));
+            transform-origin: left center;
+            z-index: 1;
+        }
+
+        /* ========== BAGIAN FITUR ========== */
+        .features-section {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(110, 69, 226, 0.03), rgba(136, 211, 206, 0.03));
+            z-index: -1;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: white;
+            background: var(--gradient-primary);
+            box-shadow: 0 8px 15px rgba(110, 69, 226, 0.2);
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--dark);
+        }
+
+        .feature-description {
+            color: var(--dark-lighter);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        /* ========== BAGIAN CARA KERJA ========== */
+        .how-it-works {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+        }
+
+        .steps-container {
+            position: relative;
+            margin-top: 50px;
+        }
+
+        .step-line {
+            position: absolute;
+            left: 40px;
+            top: 40px;
+            bottom: 40px;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            border-radius: 2px;
+            z-index: 1;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            flex-shrink: 0;
+            margin-bottom: 20px;
+            border: 3px solid white;
+        }
+
+        .step-content {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            flex-grow: 1;
+        }
+
+        .step-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--dark);
+        }
+
+        .step-content p {
+            font-size: 0.95rem;
+        }
+
+        /* ========== TESTIMONI ========== */
+        .testimonials-section {
+            position: relative;
+        }
+
+        .testimonials-slider {
+            margin-top: 50px;
+            position: relative;
+        }
+
+        .testimonial {
+            background: white;
+            border-radius: 15px;
+            padding: 30px 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            margin: 0 10px;
+            position: relative;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+
+        .testimonial-quote {
+            font-size: 1rem;
+            font-style: italic;
+            color: var(--dark-lighter);
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .testimonial-quote::before {
+            content: '"';
+            position: absolute;
+            top: -15px;
+            left: -10px;
+            font-size: 3rem;
+            color: rgba(110, 69, 226, 0.1);
+            font-family: serif;
+            line-height: 1;
+            z-index: 0;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+            border: 2px solid var(--primary-light);
+        }
+
+        .author-info h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .author-info p {
+            color: var(--dark-lighter);
+            font-size: 0.85rem;
+        }
+
+        /* ========== BAGIAN CTA ========== */
+        .cta-section {
+            background: var(--gradient-dark);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            padding: 80px 0;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, var(--primary), transparent 70%);
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.3;
+        }
+
+        .cta-section::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: -50px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, var(--secondary), transparent 70%);
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.3;
+        }
+
+        .cta-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+        }
+
+        .cta-subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            max-width: 100%;
+            margin: 0 auto 2rem;
+            padding: 0 15px;
+        }
+
+        /* ========== FOOTER ========== */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 25px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column {
+            margin-bottom: 20px;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .footer-description {
+            opacity: 0.7;
+            margin-bottom: 15px;
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 10px;
+        }
+
+        .social-link {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-column h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 35px;
+            height: 2px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+        }
+
+        /* ========== ANIMASI ========== */
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.4; }
+            100% { transform: scale(1.1); opacity: 0.6; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+            50% { transform: translate(-50%, -50%) translateY(-15px); }
+        }
+
+        @keyframes textGradient {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ========== RESPONSIF ========== */
+        @media (min-width: 576px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+            
+            .hero-buttons {
+                flex-direction: row;
+                justify-content: center;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .hero {
+                padding: 120px 0 80px;
+                text-align: left;
+            }
+            
+            .hero-content {
+                max-width: 600px;
+                margin: 0 auto 0 0;
+                padding-right: 30px;
+            }
+            
+            .hero-subtitle {
+                padding: 0;
+            }
+            
+            .hero-buttons {
+                justify-content: flex-start;
+                padding: 0;
+            }
+            
+            .ai-visualization {
+                position: absolute;
+                right: -100px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 600px;
+                height: 600px;
+                margin: 0;
+            }
+            
+            .menu-toggle {
+                display: none;
+            }
+            
+            nav {
+                display: block;
+                order: 2;
+                width: auto;
+                margin-top: 0;
+            }
+            
+            nav ul {
+                flex-direction: row;
+                background: transparent;
+                box-shadow: none;
+                padding: 0;
+            }
+            
+            nav ul li {
+                margin: 0 10px;
+            }
+            
+            nav ul li a {
+                padding: 5px 10px;
+            }
+            
+            .header-btn {
+                order: 3;
+            }
+            
+            .footer-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+            
+            .step {
+                flex-direction: row;
+            }
+            
+            .step-number {
+                margin-right: 30px;
+                margin-bottom: 0;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .section {
+                padding: 100px 0;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .testimonial {
+                padding: 40px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .ai-visualization {
+                width: 700px;
+                height: 700px;
+            }
+            
+            .hero-content {
+                max-width: 650px;
+            }
+            
+            .hero-title {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ========== HEADER ========== -->
+    <header id="header">
+        <div class="container">
+            <div class="header-container">
+                <a href="#" class="logo">
+                    <i class="fas fa-magic logo-icon"></i>
+                    <span>CreativeFlow Pro</span>
+                </a>
+                
+                <div class="menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                
+                <nav id="nav">
+                    <ul>
+                        <li><a href="#fitur">Fitur</a></li>
+                        <li><a href="#cara-kerja">Cara Kerja</a></li>
+                        <li><a href="#testimoni">Testimoni</a></li>
+                        <li><a href="#harga">Harga</a></li>
+                    </ul>
+                </nav>
+                
+        
+            </div>
+        </div>
+    </header>
+
+    <!-- ========== BAGIAN HERO ========== -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Analisis Umpan Balik Berbasis AI</h1>
+                <p class="hero-subtitle">Jaringan neural canggih kami menganalisis umpan balik klien untuk mengungkap wawasan tersembunyi dan membantu Anda memahami preferensi mereka dengan akurasi 92%.</p>
+                <div class="hero-buttons">
+                    <a href="#" class="btn btn-primary">Mulai Uji Coba Gratis</a>
+                    <a href="#" class="btn btn-secondary">Lihat Demo</a>
+                </div>
+            </div>
+            
+            <div class="ai-visualization">
+                <div class="ai-core"></div>
+                <div class="data-node" style="top: 30%; left: 30%; background: var(--accent);">
+                    <i class="fas fa-comment-dots"></i>
+                </div>
+                <div class="data-node" style="top: 30%; left: 70%; background: var(--secondary); animation-delay: 0.5s;">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <div class="data-node" style="top: 70%; left: 30%; background: #ffd166; animation-delay: 1s;">
+                    <i class="fas fa-chart-network"></i>
+                </div>
+                <div class="data-node" style="top: 70%; left: 70%; background: #06d6a0; animation-delay: 1.5s;">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== BAGIAN FITUR ========== -->
+    <section class="section features-section" id="fitur">
+        <div class="container">
+            <h2 class="section-title">Fitur <span class="text-gradient">Unggulan</span></h2>
+            <p class="section-subtitle">Analisis Umpan Balik AI kami memberikan wawasan mendalam yang membantu Anda meningkatkan karya kreatif berdasarkan pola umpan balik klien yang nyata.</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3 class="feature-title">Analisis Sentimen</h3>
+                    <p class="feature-description">Deteksi emosi dan nada dalam umpan balik klien untuk memahami tingkat kepuasan dan respons emosional terhadap karya Anda.</p>
+                    <a href="#" class="btn btn-accent">Pelajari Lebih Lanjut</a>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <h3 class="feature-title">Pengenalan Pola</h3>
+                    <p class="feature-description">Identifikasi tema berulang dan permintaan umum di berbagai proyek untuk meningkatkan proses kreatif Anda.</p>
+                    <a href="#" class="btn btn-accent">Pelajari Lebih Lanjut</a>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="feature-title">Rekomendasi Cerdas</h3>
+                    <p class="feature-description">Dapatkan saran berbasis AI untuk perbaikan berdasarkan analisis ribuan proyek kreatif yang sukses.</p>
+                    <a href="#" class="btn btn-accent">Pelajari Lebih Lanjut</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== BAGIAN CARA KERJA ========== -->
+    <section class="section how-it-works" id="cara-kerja">
+        <div class="container">
+            <h2 class="section-title">Cara <span class="text-gradient">Kerjanya</span></h2>
+            <p class="section-subtitle">AI kami menganalisis umpan balik klien Anda dalam tiga langkah sederhana untuk memberikan wawasan yang dapat ditindaklanjuti.</p>
+            
+            <div class="steps-container">
+                <div class="step-line"></div>
+                
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Kumpulkan Umpan Balik</h3>
+                        <p>Sistem kami secara otomatis mengumpulkan semua komentar, email, dan catatan klien dari proyek CreativeFlow Pro Anda ke dalam satu lokasi terpusat.</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Pemrosesan AI</h3>
+                        <p>Algoritma pemrosesan bahasa alami canggih menganalisis teks untuk sentimen, kata kunci, dan pola tersembunyi yang mungkin terlewatkan oleh manusia.</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Sampaikan Wawasan</h3>
+                        <p>Anda menerima laporan visual yang jelas yang menyoroti temuan utama dan rekomendasi yang dapat ditindaklanjuti untuk meningkatkan karya kreatif Anda.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== BAGIAN TESTIMONI ========== -->
+    <section class="section testimonials-section" id="testimoni">
+        <div class="container">
+            <h2 class="section-title">Apa Kata <span class="text-gradient">Klien</span></h2>
+            <p class="section-subtitle">Dengar dari para profesional kreatif yang mengubah alur kerja mereka dengan Analisis Umpan Balik AI kami.</p>
+            
+            <div class="testimonials-slider">
+                <div class="testimonial">
+                    <p class="testimonial-quote">Analisis Umpan Balik AI membantu kami mengidentifikasi bahwa 80% klien kami sebenarnya menginginkan desain yang lebih sederhana ketika mereka meminta solusi 'lebih kreatif'. Wawasan ini benar-benar mengubah pendekatan kami.</p>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Johnson" class="author-avatar">
+                        <div class="author-info">
+                            <h4>Sarah Johnson</h4>
+                            <p>Direktur Kreatif, Studio Desain</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== BAGIAN CTA ========== -->
+    <section class="section cta-section">
+        <div class="container">
+            <h2 class="cta-title">Siap Mengubah Proses Kreatif Anda?</h2>
+            <p class="cta-subtitle">Bergabunglah dengan ribuan profesional kreatif yang menggunakan Analisis Umpan Balik AI untuk memberikan karya lebih baik dan klien yang lebih bahagia.</p>
+            <a href="#" class="btn btn-primary">Mulai Uji Coba Gratis</a>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <a href="#" class="footer-logo">
+                        <i class="fas fa-magic"></i> CreativeFlow Pro
+                    </a>
+                    <p class="footer-description">Platform all-in-one untuk profesional kreatif untuk mengelola proyek, berkolaborasi dengan klien, dan mengembangkan bisnis mereka.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            <div class="footer-column">
+                <h3>Produk</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Fitur</a></li>
+                    <li><a href="#">Harga</a></li>
+                    <li><a href="#">Integrasi</a></li>
+                    <li><a href="#">Pembaruan</a></li>
+                    <li><a href="#">Roadmap</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Sumber Daya</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Tutorial</a></li>
+                    <li><a href="#">Template</a></li>
+                    <li><a href="#">Pusat Bantuan</a></li>
+                    <li><a href="#">Dokumentasi API</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Perusahaan</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Tentang Kami</a></li>
+                    <li><a href="#">Karir</a></li>
+                    <li><a href="#">Kontak</a></li>
+                    <li><a href="#">Privasi</a></li>
+                    <li><a href="#">Syarat & Ketentuan</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2023 CreativeFlow Pro. Semua hak dilindungi.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- ========== SCRIPTS ========== -->
+<script>
+    // Efek Scroll Header
+    window.addEventListener('scroll', function() {
+        const header = document.getElementById('header');
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
+
+    // Toggle Menu Mobile
+    const menuToggle = document.querySelector('.menu-toggle');
+    const nav = document.getElementById('nav');
+    
+    menuToggle.addEventListener('click', function() {
+        this.classList.toggle('active');
+        nav.classList.toggle('active');
+        
+        if (nav.classList.contains('active')) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+    });
+
+    // Tutup menu saat mengklik link
+    document.querySelectorAll('#nav a').forEach(link => {
+        link.addEventListener('click', () => {
+            menuToggle.classList.remove('active');
+            nav.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    });
+
+    // Animasi elemen saat scroll
+    const animateOnScroll = function() {
+        const elements = document.querySelectorAll('.feature-card, .step, .testimonial');
+        
+        elements.forEach(element => {
+            const elementPosition = element.getBoundingClientRect().top;
+            const windowHeight = window.innerHeight;
+            
+            if (elementPosition < windowHeight - 100) {
+                element.style.opacity = '1';
+                element.style.transform = 'translateY(0)';
+            }
+        });
+    };
+
+    // Set state awal
+    document.querySelectorAll('.feature-card, .step, .testimonial').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1)';
+    });
+
+    // Jalankan saat load dan scroll
+    window.addEventListener('load', animateOnScroll);
+    window.addEventListener('scroll', animateOnScroll);
+
+    // Garis Koneksi Dinamis untuk Visualisasi AI
+    function createConnections() {
+        const core = document.querySelector('.ai-core');
+        const nodes = document.querySelectorAll('.data-node');
+        const visualization = document.querySelector('.ai-visualization');
+        
+        // Hapus koneksi yang ada
+        document.querySelectorAll('.connection-line').forEach(el => el.remove());
+        
+        nodes.forEach(node => {
+            const line = document.createElement('div');
+            line.className = 'connection-line';
+            
+            const coreRect = core.getBoundingClientRect();
+            const nodeRect = node.getBoundingClientRect();
+            const visRect = visualization.getBoundingClientRect();
+            
+            const coreX = coreRect.left + coreRect.width/2 - visRect.left;
+            const coreY = coreRect.top + coreRect.height/2 - visRect.top;
+            const nodeX = nodeRect.left + nodeRect.width/2 - visRect.left;
+            const nodeY = nodeRect.top + nodeRect.height/2 - visRect.top;
+            
+            const length = Math.sqrt(Math.pow(nodeX - coreX, 2) + Math.pow(nodeY - coreY, 2));
+            const angle = Math.atan2(nodeY - coreY, nodeX - coreX);
+            
+            line.style.width = `${length}px`;
+            line.style.left = `${coreX}px`;
+            line.style.top = `${coreY}px`;
+            line.style.transform = `rotate(${angle}rad)`;
+            line.style.opacity = '0';
+            
+            visualization.appendChild(line);
+            
+            // Animasi masuk
+            setTimeout(() => {
+                line.style.transition = 'opacity 0.8s ease';
+                line.style.opacity = '0.3';
+                
+                // Animasi berdenyut
+                let pulseCount = 0;
+                const pulseInterval = setInterval(() => {
+                    pulseCount++;
+                    if (pulseCount > 3) {
+                        clearInterval(pulseInterval);
+                        line.style.opacity = '0';
+                        setTimeout(() => line.remove(), 1000);
+                    } else {
+                        line.style.opacity = '0.3';
+                        setTimeout(() => {
+                            line.style.opacity = '0.1';
+                        }, 500);
+                    }
+                }, 1500);
+            }, Math.random() * 1000);
+        });
+    }
+
+    // Buat koneksi awal
+    createConnections();
+
+    // Animasi koneksi terus menerus
+    setInterval(createConnections, 4000);
+
+    // Efek 3D Miring untuk Kartu Fitur
+    document.querySelectorAll('.feature-card').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            if (window.innerWidth > 768) { // Hanya di desktop
+                const x = e.clientX - card.getBoundingClientRect().left;
+                const y = e.clientY - card.getBoundingClientRect().top;
+                
+                const centerX = card.offsetWidth / 2;
+                const centerY = card.offsetHeight / 2;
+                
+                const angleX = (y - centerY) / 15;
+                const angleY = (centerX - x) / 15;
+                
+                card.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) scale(1.03)`;
+                
+                // Efek cahaya
+                const glow = document.createElement('div');
+                glow.className = 'card-glow';
+                glow.style.left = `${x}px`;
+                glow.style.top = `${y}px`;
+                card.appendChild(glow);
+                
+                setTimeout(() => {
+                    glow.remove();
+                }, 1000);
+            }
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+        });
+    });
+
+    // Tambahkan gaya efek cahaya secara dinamis
+    const style = document.createElement('style');
+    style.textContent = `
+        .card-glow {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(255,255,255,0.8), transparent 70%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            animation: glowFade 1s forwards;
+            z-index: 0;
+        }
+        
+        @keyframes glowFade {
+            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0.8; }
+            100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
+        }
+    `;
+    document.head.appendChild(style);
+
+    // Interaksi Node Data
+    document.querySelectorAll('.data-node').forEach(node => {
+        node.addEventListener('mouseenter', () => {
+            node.style.transform = 'translate(-50%, -50%) scale(1.2)';
+            node.style.boxShadow = `0 0 30px ${node.style.backgroundColor}`;
+            
+            // Buat efek ripple
+            const ripple = document.createElement('div');
+            ripple.className = 'node-ripple';
+            ripple.style.backgroundColor = node.style.backgroundColor;
+            node.appendChild(ripple);
+            
+            setTimeout(() => {
+                ripple.style.transform = 'scale(2)';
+                ripple.style.opacity = '0';
+            }, 10);
+            
+            setTimeout(() => ripple.remove(), 1000);
+        });
+        
+        node.addEventListener('mouseleave', () => {
+            node.style.transform = 'translate(-50%, -50%) scale(1)';
+            node.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.2)';
+        });
+        
+        // Tambahkan efek klik
+        node.addEventListener('click', () => {
+            const burst = document.createElement('div');
+            burst.className = 'node-burst';
+            burst.style.backgroundColor = node.style.backgroundColor;
+            document.querySelector('.ai-visualization').appendChild(burst);
+            
+            setTimeout(() => {
+                burst.style.transform = 'scale(1.5)';
+                burst.style.opacity = '0';
+            }, 10);
+            
+            setTimeout(() => burst.remove(), 1000);
+        });
+    });
+
+    // Tambahkan gaya efek node
+    const nodeStyles = document.createElement('style');
+    nodeStyles.textContent = `
+        .node-ripple {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: inherit;
+            opacity: 0.5;
+            transform: scale(1);
+            transition: all 0.8s ease-out;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .node-burst {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: inherit;
+            opacity: 0.3;
+            transform: scale(0);
+            transition: all 0.8s ease-out;
+            pointer-events: none;
+            z-index: 0;
+        }
+    `;
+    document.head.appendChild(nodeStyles);
+
+    // Slider Testimoni
+    const testimonials = [
+        {
+            quote: "Analisis Umpan Balik AI membantu kami mengidentifikasi bahwa 80% klien kami sebenarnya menginginkan desain yang lebih sederhana ketika mereka meminta solusi 'lebih kreatif'. Wawasan ini benar-benar mengubah pendekatan kami.",
+            name: "Sarah Johnson",
+            role: "Direktur Kreatif, Studio Desain",
+            image: "https://randomuser.me/api/portraits/women/44.jpg"
+        },
+        {
+            quote: "Kami mengurangi siklus revisi sebesar 60% setelah menerapkan saran AI. Seperti memiliki direktur kreatif senior yang meninjau setiap komentar klien.",
+            name: "Michael Chen",
+            role: "Desainer Utama, Agensi Digital",
+            image: "https://randomuser.me/api/portraits/men/32.jpg"
+        },
+        {
+            quote: "Fitur analisis sentimen menyelamatkan kami dari melewatkan frustrasi halus klien yang mungkin kami abaikan. Pengubah permainan untuk hubungan klien.",
+            name: "Emma Rodriguez",
+            role: "Manajer Produksi Video",
+            image: "https://randomuser.me/api/portraits/women/68.jpg"
+        }
+    ];
+
+    let currentTestimonial = 0;
+    const testimonialElement = document.querySelector('.testimonial');
+    
+    function showTestimonial(index) {
+        testimonialElement.style.opacity = '0';
+        
+        setTimeout(() => {
+            testimonialElement.querySelector('.testimonial-quote').textContent = testimonials[index].quote;
+            testimonialElement.querySelector('.author-avatar').src = testimonials[index].image;
+            testimonialElement.querySelector('h4').textContent = testimonials[index].name;
+            testimonialElement.querySelector('p').textContent = testimonials[index].role;
+            
+            testimonialElement.style.opacity = '1';
+            testimonialElement.style.animation = 'fadeIn 0.8s ease';
+        }, 500);
+    }
+
+    // Putar testimoni otomatis
+    setInterval(() => {
+        currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+        showTestimonial(currentTestimonial);
+    }, 5000);
+
+    // Scroll halus untuk navigasi
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                window.scrollTo({
+                    top: target.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    // Tambahkan elemen latar belakang animasi
+    function createFloatingShapes() {
+        const colors = ['rgba(110, 69, 226, 0.1)', 'rgba(136, 211, 206, 0.1)', 'rgba(255, 126, 95, 0.1)'];
+        const sections = document.querySelectorAll('.section, .hero');
+        
+        sections.forEach(section => {
+            // Hapus bentuk yang ada
+            section.querySelectorAll('.floating-shape').forEach(shape => shape.remove());
+            
+            // Buat bentuk baru
+            for (let i = 0; i < 5; i++) {
+                const shape = document.createElement('div');
+                shape.className = 'floating-shape';
+                
+                const size = Math.random() * 100 + 50;
+                const duration = Math.random() * 20 + 20;
+                const delay = Math.random() * 10;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                
+                shape.style.width = `${size}px`;
+                shape.style.height = `${size}px`;
+                shape.style.background = color;
+                shape.style.left = `${Math.random() * 100}%`;
+                shape.style.top = `${Math.random() * 100}%`;
+                shape.style.animation = `float ${duration}s linear ${delay}s infinite`;
+                shape.style.borderRadius = Math.random() > 0.5 ? '50%' : '20%';
+                
+                section.appendChild(shape);
+            }
+        });
+    }
+
+    // Tambahkan gaya bentuk melayang
+    const floatingStyles = document.createElement('style');
+    floatingStyles.textContent = `
+        .floating-shape {
+            position: absolute;
+            opacity: 0.3;
+            filter: blur(30px);
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(20px, 20px) rotate(5deg);
+            }
+            50% {
+                transform: translate(0, 40px) rotate(0deg);
+            }
+            75% {
+                transform: translate(-20px, 20px) rotate(-5deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+        }
+    `;
+    document.head.appendChild(floatingStyles);
+
+    // Inisialisasi bentuk melayang
+    createFloatingShapes();
+
+    // Buat ulang bentuk saat resize
+    window.addEventListener('resize', createFloatingShapes);
+</script>
